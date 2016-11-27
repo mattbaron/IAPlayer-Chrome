@@ -9,12 +9,38 @@ function testButton() {
    });
 }
 
+function playStation() {
+
+}
+
+function loadStationList(stationStore) {
+   var ids = stationStore.getIDs();
+   for(var i = 0; i < ids.length; i++) {
+      var station = stationStore.getStation(ids[i]);
+      Log.i(station);
+      var option = $("<option>");
+      option.attr("value", ids[i]);
+      option.text(station.name);
+      option.appendTo($("#stationList"));
+   }
+}
+
+function init() {
+
+   App.loadStationData(function(stationStore) {
+      loadStationList(stationStore);
+   });
+
+}
+
 $(document).ready(function() {
-   Log.i("popup.js ready");
-   $("#test").html("foobar");
+
+   App.init(function() {
+      init();
+   });
    
-   $("#testButton").click(function() {
-      testButton();
+   $("#stationList").change(function() {
+      App.playStation($(this).val());
    });
    
 });

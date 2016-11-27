@@ -6,12 +6,47 @@
 
 function App() {
    App.stationStore;
+   App.player;
+   App.background;
 }
 
 App.stationStore = new StationStore();
 
-App.init = function() {
+App.init = function(callback) {
 
+   chrome.runtime.getBackgroundPage(function(background) {
+      Log.i("App.init() got background page");
+      App.background = background;
+      App.player = background.player;
+      if(callback !== undefined) {
+         callback();
+      }
+   });
+
+};
+
+App.getPlayer = function(callback) {
+
+};
+
+App.playStation = function(id) {
+
+   Log.i("Playing station " + id);
+
+   var station = App.stationStore.getStation(id);
+
+   Log.i(station);
+
+   var playlist = new Playlist(station.url);
+   playlist.getStreams(function(streams) {
+      try {
+         App.player.src = streams[0];
+         App.player.play();
+         Log.i("OK");
+      } catch(e) {
+         Log.i("EXCEPTION: " + e.tostring());
+      }
+   });
 };
 
 App.parseStationData = function(rawStreamData, callback) {
