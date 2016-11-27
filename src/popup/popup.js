@@ -17,7 +17,7 @@ function loadStationList(stationStore) {
    var ids = stationStore.getIDs();
    for(var i = 0; i < ids.length; i++) {
       var station = stationStore.getStation(ids[i]);
-      Log.i(station);
+      //Log.i(station);
       var option = $("<option>");
       option.attr("value", ids[i]);
       option.text(station.name);
@@ -43,5 +43,14 @@ $(document).ready(function() {
       App.playStation($(this).val());
    });
    
+   $("#playButton").click(function() {
+      //Log.i(App.currentStation);
+      App.getPlayer().play();
+   });
+
+   $("#pauseButton").click(function() {
+      Log.i(App.currentStation);
+      App.getPlayer().pause();
+   });
 });
 

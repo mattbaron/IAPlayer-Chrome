@@ -17,7 +17,7 @@
    },
    
    "background": {
-      "scripts": ["/src/background.js"]
+      "scripts": ["/lib/jquery.min.js", "/src/iaplayer.js", "/src/background.js"]
    },
    
    "browser_action": {

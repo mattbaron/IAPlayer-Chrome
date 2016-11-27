@@ -8,6 +8,7 @@ function App() {
    App.stationStore;
    App.player;
    App.background;
+   App.currentStation;
 }
 
 App.stationStore = new StationStore();
@@ -26,7 +27,12 @@ App.init = function(callback) {
 };
 
 App.getPlayer = function(callback) {
+   return App.player;
+};
 
+App.playStream = function(streamURL) {
+   App.player.src = streamURL;
+   App.player.play();
 };
 
 App.playStation = function(id) {
@@ -34,18 +40,13 @@ App.playStation = function(id) {
    Log.i("Playing station " + id);
 
    var station = App.stationStore.getStation(id);
+   App.currentStation = station;
 
    Log.i(station);
 
    var playlist = new Playlist(station.url);
    playlist.getStreams(function(streams) {
-      try {
-         App.player.src = streams[0];
-         App.player.play();
-         Log.i("OK");
-      } catch(e) {
-         Log.i("EXCEPTION: " + e.tostring());
-      }
+      App.playStream(streams[0]);
    });
 };
 
