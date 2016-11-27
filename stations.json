@@ -1,0 +1,109 @@
+{
+
+   "A4E4F6A0-1867-4A06-9B6C-B1DD61B0D880": {
+      "name": "WFMU 91.1 FM NY",
+      "url": "http://wfmu.org/wfmu.pls"
+   },
+
+   "46A78F94-840E-4C17-BB05-8C7AAA324D8B": {
+      "name": "SomaFM Drone Zone",
+      "url": "http://somafm.com/dronezone.pls"
+   },
+
+   "1f781cee-31a2-48f3-84cb-6447571a51b1": {
+      "name": "SomaFM Sonic Universe",
+      "url": "http://somafm.com/sonicuniverse192.pls"
+   },
+
+   "A7379886-74F2-4EE3-BB24-4C1EC7F5B653": {
+      "name": "SomaFM Sonic Universe 128k",
+      "url": "http://somafm.com/sonicuniverse.pls"
+   },
+
+   "835504F3-3516-45B3-86B5-A9AA1CFBEC36": {
+      "name": "SomaFM Space Station Soma",
+      "url": "http://somafm.com/spacestation.pls"
+   },
+
+   "561583F4-2DFD-4B54-93DF-FFFB60B895F5": {
+      "name": "SomaFM Mission Control",
+      "url": "https://somafm.com/missioncontrol.pls"
+   },
+
+   "8DCCABA9-D360-4D60-9FF5-24DE22B66670": {
+      "name": "SomaFM Deep Space One",
+      "url": "https://somafm.com/deepspaceone.pls"
+   },
+
+   "B282F905-8F02-4002-A12D-C52F36801149": {
+      "name": "SomaFM Beat Blender",
+      "url": "http://somafm.com/beatblender.pls"
+   },
+
+   "3F0765AF-741A-4646-82A0-D8C5496F6360": {
+      "name": "SomaFM 7-inch Soul",
+      "url": "ttp://somafm.com/7soul.pls"
+   },
+
+   "B11AF6C1-2EBF-4167-9DAE-6B28D40C5072": {
+      "name": "Freethought Radio",
+      "url": "http://rs4.radiostreamer.com:8370/listen.pls"
+   },
+
+   "917D9DE2-B6BD-42B8-A78E-0670E8AB722F": {
+      "name": "Freethought Radio 24k",
+      "url": "http://rs4.radiostreamer.com:9110/listen.pls"
+   },
+
+   "63a3fc40-0f56-4f1d-88cc-44da6a2e0677": {
+      "name": "KFAI 90.3 FM",
+      "url": "http://kfai.org/sites/default/stream/kfai-live.pls"
+   },
+
+   "9BF3627E-8A1F-4F0E-8751-84172B10E9D1": {
+      "name": "WBAI",
+      "url": "http://stream.wbai.org/24kmonomp3.m3u"
+   },
+
+   "8D8CC482-FDB9-4801-BB43-B72C3B204BFB": {
+      "name": "KSJN 99.5 FM MPR Classical",
+      "url": "http://minnesota.publicradio.org/tools/play/streams/classical.pls"
+   },
+
+   "D24CB9BD-59A0-4D7F-8EC0-91AC0AEB60B2": {
+      "name": "KNOW 91.1 FM MPR News",
+      "url": "http://minnesota.publicradio.org/tools/play/streams/news.pls"
+   },
+
+   "1EA9A7BE-D9A1-4F73-AAFC-2BBE439D0461": {
+      "name": "KEXP 90.3 Seattle",
+      "url": "http://live-mp3-128.kexp.org:8000/listen.pls"
+   },
+
+   "2AD84080-774D-42C5-A4EF-060B4CC6DB65": {
+      "name": "Abacus - Vintage Jazz",
+      "url": "http://listen.abacus.fm/vintagejazz.m3u"
+   },
+
+   "F3C0F8BC-648F-4AEC-86B2-C2A714A4D793": {
+      "name": "Radio K 770 AM",
+      "url": "http://radiokstreams.cce.umn.edu:8256/listen.pls"
+   },
+
+   "6F6CAF59-C7FC-46AC-9591-7C7DB947C0B8": {
+      "name": "DNB Radio",
+      "url": "http://yp.shoutcast.com/sbin/tunein-station.pls?id=23036"
+   },
+
+   "E780EF7D-77DD-459C-AAE4-D234B8F6805E": {
+      "name": "Abacus Motzart Piano",
+      "url": "http://listen.abacus.fm/mozartpiano.m3u"
+   },
+
+   "86E38CB1-8D76-411F-8AE3-76811F163E13": {
+      "name": "KRBX 89.9 FM Radio Boise",
+      "url": "http://radioboise-ice.streamguys1.com/live"
+   }
+
+
+}

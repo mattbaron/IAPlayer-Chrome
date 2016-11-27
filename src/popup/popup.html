@@ -2,23 +2,23 @@
 <html>
    <head>
       <title>Test</title>
+      <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="popup.css">
    </head>
    <body>
       <script src="/lib/jquery.min.js"></script>
       <script src="/src/popup/popup.js"></script>
       <script src="/src/utils.js"></script>
-      <h1>Hello world!</h1>
-      <select size=0>
-         <option>Foo</option>
-         <option>Bar</option>
-         <option>Foo</option>
-         <option>Bar</option>
-         <option>Foo</option>
-         <option>Bar</option>
-         <option>Foo</option>
-         <option>Bar</option>
-      </select>
-      <div id="test"></div>
-      <button id="testButton">Test</button>
+
+      <div id="main">
+
+         <select class="form-control">
+            <option>Foo</option>
+         </select>
+
+         <button id="playButton" class="btn btn-default btn-xs">Play</button>
+         <button id="playButton" class="btn btn-default btn-xs">Pause</button>
+
+      </div>
    </body>
 </html>
