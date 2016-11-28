@@ -1,92 +1,18 @@
-///////////////////////////////////////////////////////////////////////////////
-//
-// App (Comment added to dev branch)
-//
-///////////////////////////////////////////////////////////////////////////////
-
-function App() {
-   App.stationStore;
-   App.player;
-   App.background;
-   App.currentStation;
-}
-
-App.stationStore = new StationStore();
-
-App.init = function(callback) {
-
+function getContext(callback) {
    chrome.runtime.getBackgroundPage(function(background) {
-      Log.i("App.init() got background page");
-      App.background = background;
-      App.player = background.player;
       if(callback !== undefined) {
-         callback();
+         callback(background.getContext());
       }
    });
-
-};
-
-App.getPlayer = function(callback) {
-   return App.player;
-};
-
-App.playStream = function(streamURL) {
-   App.player.src = streamURL;
-   App.player.play();
-};
-
-App.playStation = function(id) {
-
-   Log.i("Playing station " + id);
-
-   var station = App.stationStore.getStation(id);
-   App.currentStation = station;
-
-   Log.i(station);
-
-   var playlist = new Playlist(station.url);
-   playlist.getStreams(function(streams) {
-      App.playStream(streams[0]);
-   });
-};
-
-App.parseStationData = function(rawStreamData, callback) {
-   try {
-      var json = JSON.parse(rawStreamData);
-
-      App.stationStore = new StationStore();
-
-      for(var id in json) {
-         var s = new Station(json[id].name, json[id].url, id);
-         App.stationStore.addStation(s);
-      }
-
-      callback(App.stationStore);
-
-   } catch(exception) {
-      Log.e("Exception parsing station data: " + exception);
-      Log.e(exception);
-   }
 }
 
-App.loadStationData = function(callback) {
-
-   $.ajax({
-      url: "/stations.json",
-      method: "GET",
-      dataType: "html",
-      success: function(rawStreamData) {
-         App.parseStationData(rawStreamData, callback);
-      },
-      error: function() {
-         Log.e("Error loading stream data");
+function getBackgroundPage(callback) {
+   chrome.runtime.getBackgroundPage(function(background) {
+      if(callback !== undefined) {
+         callback(background);
       }
    });
-};
-
-App.saveStationData = function(callback) {
-
-};
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 //

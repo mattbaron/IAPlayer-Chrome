@@ -1,83 +1,99 @@
 function Context() {
-   Context.player;
-   Context.stationStore;
+   Context.instance = this;
+   this.initialized = false;
+   this.stationStore = new StationStore();
+   this.player = new Audio();
 }
 
-Context.player = new Audio();
-Context.stationStore = new StationStore();
+Context.getInstance = function() {
+   if(Context.instance === undefined) {
+      Context.instance = new Context();
+   }
+   return Context.instance;
+};
 
-function getContext() {
-   return Context;
-}
+Context.prototype.getStationStore = function() {
+   return this.stationStore;
+};
 
-function getPlayer() {
-   return player;
-}
+Context.prototype.playStream = function(streamURL) {
+   this.player.src = streamURL;
+   this.player.play();
+};
 
-function playStream(streamURL) {
-   Context.player.src = streamURL;
-   Context.player.play();
-}
-
-function playStation(id) {
+Context.prototype.playStation = function(id) {
 
    console.log("Playing station " + id);
 
-   var station = Context.stationStore.getStation(id);
+   var station = this.stationStore.getStation(id);
 
    console.log(station);
 
+   var _this = this;
+
    var playlist = new Playlist(station.url);
    playlist.getStreams(function(streams) {
-      playStream(streams[0]);
+      _this.playStream(streams[0]);
    });
-}
 
-function parseStationData(rawStreamData, callback) {
+};
+
+Context.prototype.parseStationData = function(rawStreamData, callback) {
    try {
       var json = JSON.parse(rawStreamData);
 
-      Context.stationStore = new StationStore();
+      this.stationStore = new StationStore();
 
       for(var id in json) {
          var s = new Station(json[id].name, json[id].url, id);
-         Context.stationStore.addStation(s);
+         this.stationStore.addStation(s);
       }
 
-      callback(Context.stationStore);
+      callback(this.stationStore);
+      this.initialized = true;
 
    } catch(exception) {
-      Log.e("Exception parsing station data: " + exception);
-      Log.e(exception);
+      console.log("Exception parsing station data: " + exception);
+      console.log(exception);
    }
-}
+};
 
-function loadStationData(callback) {
+Context.prototype.loadStationData = function(callback) {
+
+   var _this = this;
 
    $.ajax({
       url: "/stations.json",
       method: "GET",
       dataType: "html",
       success: function(rawStreamData) {
-         parseStationData(rawStreamData, callback);
+         _this.parseStationData(rawStreamData, callback);
       },
       error: function() {
-         Log.e("Error loading stream data");
+         console.log("Error loading stream data");
       }
    });
-}
+};
 
-function saveStationData(callback) {
+Context.prototype.saveStationData = function(callback) {
 
+};
+
+function getContext() {
+   return Context.getInstance();
 }
 
 function init(callback) {
-   loadStationData(callback);
+   var context = Context.getInstance();
+   context.loadStationData(callback);
 }
 
 $(document).ready(function() {
+
    console.log("background.js is ready");
+
    init(function() {
       console.log("background initialization complete");
    });
+
 });
