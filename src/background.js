@@ -3,6 +3,7 @@ function Context() {
    this.initialized = false;
    this.stationStore = new StationStore();
    this.player = new Audio();
+   this.currentStation = undefined;
 }
 
 Context.getInstance = function() {
@@ -19,6 +20,13 @@ Context.prototype.getStationStore = function() {
 
 Context.prototype.getPlayer = function() {
    return this.player;
+};
+
+Context.prototype.getCurrentStation = function() {
+   if(this.currentStation === undefined) {
+      this.currentStation = this.stationStore.getStation();
+   }
+   return this.currentStation;
 };
 
 Context.prototype.playStream = function(streamURL) {
@@ -54,7 +62,8 @@ Context.prototype.parseStationData = function(rawStreamData, callback) {
          this.stationStore.addStation(s);
       }
 
-      callback(this.stationStore);
+      this.currentStation = this.stationStore.getStation();
+      callback(this);
       this.initialized = true;
 
    } catch(exception) {
@@ -114,7 +123,7 @@ $(document).ready(function() {
 
    console.log("background.js is ready");
 
-   init(function() {
+   init(function(context) {
       console.log("background initialization complete");
    });
 

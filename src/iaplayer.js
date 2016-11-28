@@ -29,6 +29,12 @@ StationStore.prototype.addStation = function(newStation) {
 };
 
 StationStore.prototype.getStation = function(id) {
+   if(id === undefined) {
+      id = (this.getIDs())[0];
+
+   }
+   Log.i("getStation() ID=" + id);
+   Log.i(this.stationMap[id]);
    return this.stationMap[id];
 };
 
