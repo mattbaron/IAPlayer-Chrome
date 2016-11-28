@@ -1,17 +1,14 @@
-function testButton() {
-   var props = {type: "popup", width: 320, height: 200};
-   //chrome.windows.create(props);
-   
-   
+var background = undefined;
+
+function init(callback) {
    chrome.runtime.getBackgroundPage(function(bg) {
-      bg.player.src = "http://ice2.somafm.com/spacestation-128-mp3";
-      bg.player.play();
+      background = bg;
+      loadStationList(background.Context.stationStore);
+      if(callback !== undefined) {
+         callback();
+      }
    });
-}
-
-function playStation() {
-
-}
+};
 
 function loadStationList(stationStore) {
    var ids = stationStore.getIDs();
@@ -25,32 +22,24 @@ function loadStationList(stationStore) {
    }
 }
 
-function init() {
-
-   App.loadStationData(function(stationStore) {
-      loadStationList(stationStore);
-   });
-
-}
-
 $(document).ready(function() {
 
-   App.init(function() {
-      init();
+   init(function() {
+      Log.i("Local initialization complete");
    });
    
    $("#stationList").change(function() {
-      App.playStation($(this).val());
+      background.playStation($(this).val());
    });
    
    $("#playButton").click(function() {
       //Log.i(App.currentStation);
-      App.getPlayer().play();
+      background.getPlayer().play();
    });
 
    $("#pauseButton").click(function() {
       Log.i(App.currentStation);
-      App.getPlayer().pause();
+      background.getPlayer().pause();
    });
 });
 
