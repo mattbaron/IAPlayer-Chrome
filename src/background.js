@@ -24,8 +24,6 @@ Context.prototype.getPlayer = function() {
 };
 
 Context.prototype.getCurrentStation = function() {
-   console.log("background.js getCurrentStation()");
-
    if(this.currentStation === undefined) {
       this.currentStation = this.stationStore.getStation();
    }
@@ -121,7 +119,13 @@ function getContext() {
 
 function init(callback) {
    var context = Context.getInstance();
-   context.loadStationData(callback);
+
+   if(context.initialized === true) {
+      callback(context);
+   } else {}
+      context.loadStationData(callback);
+   }
+
 }
 
 $(document).ready(function() {
