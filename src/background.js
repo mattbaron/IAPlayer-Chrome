@@ -8,12 +8,17 @@ function Context() {
 Context.getInstance = function() {
    if(Context.instance === undefined) {
       Context.instance = new Context();
+      Context.instance.initEvents();
    }
    return Context.instance;
 };
 
 Context.prototype.getStationStore = function() {
    return this.stationStore;
+};
+
+Context.prototype.getPlayer = function() {
+   return this.player;
 };
 
 Context.prototype.playStream = function(streamURL) {
@@ -77,6 +82,23 @@ Context.prototype.loadStationData = function(callback) {
 
 Context.prototype.saveStationData = function(callback) {
 
+};
+
+Context.prototype.initEvents = function() {
+   var _this = this;
+   var player = this.player;
+
+   this.player.addEventListener("error", function(e) {
+
+      console.log("player error"); console.log(e);
+
+      if(!player.src.endsWith(";")) {
+         player.src = player.src + ";";
+         Log.i("Trying " + player.src);
+         player.play();
+      }
+
+   });
 };
 
 function getContext() {

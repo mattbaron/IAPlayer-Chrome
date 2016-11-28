@@ -16,7 +16,6 @@ function loadStationList(stationStore) {
 $(document).ready(function() {
 
    getContext(function(context) {
-      Log.i(context);
       Popup.context = context;
       loadStationList(context.getStationStore());
       if(callback !== undefined) {
@@ -29,11 +28,11 @@ $(document).ready(function() {
    });
    
    $("#playButton").click(function() {
-      Popup.context.getPlayer().play();
+      Popup.context.player.play();
    });
 
    $("#pauseButton").click(function() {
-      Popup.context.getPlayer().pause();
+      Popup.context.player.pause();
    });
 });
 
