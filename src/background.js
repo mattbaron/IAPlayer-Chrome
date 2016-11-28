@@ -8,6 +8,7 @@ function Context() {
 
 Context.getInstance = function() {
    if(Context.instance === undefined) {
+      console.log("background.js Conext.instance is null.  Returning new instance.");
       Context.instance = new Context();
       Context.instance.initEvents();
    }
@@ -23,6 +24,8 @@ Context.prototype.getPlayer = function() {
 };
 
 Context.prototype.getCurrentStation = function() {
+   console.log("background.js getCurrentStation()");
+
    if(this.currentStation === undefined) {
       this.currentStation = this.stationStore.getStation();
    }
@@ -38,13 +41,13 @@ Context.prototype.playStation = function(id) {
 
    console.log("Playing station " + id);
 
-   var station = this.stationStore.getStation(id);
+   this.currentStation = this.stationStore.getStation(id);
 
-   console.log(station);
+   console.log(this.currentStation);
 
    var _this = this;
 
-   var playlist = new Playlist(station.url);
+   var playlist = new Playlist(this.currentStation.url);
    playlist.getStreams(function(streams) {
       _this.playStream(streams[0]);
    });
@@ -73,6 +76,8 @@ Context.prototype.parseStationData = function(rawStreamData, callback) {
 };
 
 Context.prototype.loadStationData = function(callback) {
+
+   console.log("background.js loadStationData()");
 
    var _this = this;
 
