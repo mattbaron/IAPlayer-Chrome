@@ -4,6 +4,12 @@ function Popup() {
 
 function loadStationList(context) {
    var ids = context.stationStore.getIDs();
+
+   var option = $("<option>");
+   option.attr("value", "");
+   option.text("Select a station...");
+   option.appendTo($("#stationList"));
+
    for(var i = 0; i < ids.length; i++) {
       var station = context.stationStore.getStation(ids[i]);
       var option = $("<option>");
@@ -35,6 +41,18 @@ $(document).ready(function() {
       Popup.context = context;
       initEvents(context);
       loadStationList(context);
+
+      if(!context.player.paused) {
+         $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
+         $("#playPauseButton > span").addClass("glyphicon-pause");
+      } else {
+         $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
+         $("#playPauseButton > span").addClass("glyphicon-play");
+      }
+   });
+
+   $(".btn").click(function(event) {
+      $(this).blur()
    });
    
    $("#stationList").change(function() {
@@ -42,7 +60,6 @@ $(document).ready(function() {
    });
    
    $("#playPauseButton").click(function() {
-
       var player = Popup.context.player;
 
       if(player.src === undefined || player.src.length === 0) {
