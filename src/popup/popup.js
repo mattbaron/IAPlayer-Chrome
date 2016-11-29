@@ -41,6 +41,7 @@ function initEvents(context) {
 $(document).ready(function() {
 
    getContext(function(context) {
+
       Popup.context = context;
       initEvents(context);
       loadStationList(context);
