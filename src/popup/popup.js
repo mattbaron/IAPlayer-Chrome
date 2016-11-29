@@ -20,7 +20,6 @@ function loadStationList(context) {
 
    var currentStation = context.getCurrentStation();
 
-   Log.i(currentStation);
    if(currentStation !== null) {
       $("#stationList").val(currentStation.id);
    }
