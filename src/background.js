@@ -3,7 +3,7 @@ function Context() {
    this.initialized = false;
    this.stationStore = new StationStore();
    this.player = new Audio();
-   this.currentStation = undefined;
+   this.currentStation = null;
 }
 
 Context.getInstance = function() {
@@ -24,9 +24,6 @@ Context.prototype.getPlayer = function() {
 };
 
 Context.prototype.getCurrentStation = function() {
-   if(this.currentStation === undefined) {
-      this.currentStation = this.stationStore.getStation();
-   }
    return this.currentStation;
 };
 
@@ -68,7 +65,6 @@ Context.prototype.parseStationData = function(rawStreamData, callback) {
          this.stationStore.addStation(s);
       }
 
-      this.currentStation = this.stationStore.getStation();
       callback(this);
       this.initialized = true;
 

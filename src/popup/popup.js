@@ -19,7 +19,11 @@ function loadStationList(context) {
    }
 
    var currentStation = context.getCurrentStation();
-   $("#stationList").val(currentStation.id);
+
+   Log.i(currentStation);
+   if(currentStation !== null) {
+      $("#stationList").val(currentStation.id);
+   }
 }
 
 function initEvents(context) {
