@@ -35,6 +35,11 @@ Context.prototype.playStream = function(streamURL) {
    this.player.play();
 };
 
+Context.prototype.loadStation = function(station) {
+   this.currentStation = station;
+   this.player = station.id;
+};
+
 Context.prototype.playStation = function(id) {
 
    console.log("Playing station " + id);
@@ -122,7 +127,7 @@ function init(callback) {
 
    if(context.initialized === true) {
       callback(context);
-   } else {}
+   } else {
       context.loadStationData(callback);
    }
 

@@ -16,10 +16,24 @@ function loadStationList(context) {
    $("#stationList").val(currentStation.id);
 }
 
+function initEvents(context) {
+
+   context.player.addEventListener("playing", function() {
+      $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
+      $("#playPauseButton > span").addClass("glyphicon-pause");
+   });
+
+   context.player.addEventListener("pause", function() {
+      $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
+      $("#playPauseButton > span").addClass("glyphicon-play");
+   });
+}
+
 $(document).ready(function() {
 
    getContext(function(context) {
       Popup.context = context;
+      initEvents(context);
       loadStationList(context);
    });
    
@@ -27,12 +41,22 @@ $(document).ready(function() {
       Popup.context.playStation($(this).val());
    });
    
-   $("#playButton").click(function() {
-      Popup.context.player.play();
+   $("#playPauseButton").click(function() {
+
+      var player = Popup.context.player;
+
+      if(player.src === undefined || player.src.length === 0) {
+         return;
+      }
+
+      if(!player.paused) {
+         Log.i("pause");
+         player.pause();
+      } else {
+         Log.i("play");
+         player.play();
+      }
    });
 
-   $("#pauseButton").click(function() {
-      Popup.context.player.pause();
-   });
 });
 
