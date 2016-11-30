@@ -1,8 +1,6 @@
 // options.js
 
-function Options() {
-   var context;
-}
+var context;
 
 function editStationDialog(id) {
    var station = context.stationStore.getStation(id);
