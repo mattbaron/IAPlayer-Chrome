@@ -1,12 +1,11 @@
 // options.js
 
-function Options {
+function Options() {
    var context;
 }
 
 function editStationDialog(id) {
    var station = context.stationStore.getStation(id);
-   console.log(id);
 
    $("#stationDialogTitle").text("Edit Station");
    $("#stationDialog").attr("data-id", station.id);
@@ -18,6 +17,8 @@ function editStationDialog(id) {
 function newStationDialog() {
    $("#stationDialogTitle").text("Add Station");
    $("#stationDialog").removeAttr("data-id");
+   $("#stationDialog #stationName").val("");
+   $("#stationDialog #stationURL").val("");
    $("#stationDialog").modal("show");
 }
 
@@ -26,11 +27,12 @@ function loadStations(context) {
    
    for(var i = 0; i < ids.length; i++) {
       var station = context.stationStore.getStation(ids[i]);
-      var tr = $("<tr>");
+
+      var tr = $("<tr>").attr("id", station.id);
+
       $("<td>").html(station.name).appendTo(tr);
       $("<td>").html(station.url).appendTo(tr);
-      
-      tr.attr("id", station.id);
+
       tr.appendTo("#stationTable > tbody");
    }
 
