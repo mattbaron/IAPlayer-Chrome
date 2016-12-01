@@ -1,9 +1,9 @@
 // options.js
 
-var context;
+var local = new Object();
 
 function editStationDialog(id) {
-   var station = context.stationStore.getStation(id);
+   var station = local.context.stationStore.getStation(id);
 
    $("#stationDialogTitle").text("Edit Station");
    $("#stationDialog").attr("data-id", station.id);
@@ -18,6 +18,9 @@ function newStationDialog() {
    $("#stationDialog #stationName").val("");
    $("#stationDialog #stationURL").val("");
    $("#stationDialog").modal("show");
+   $("#stationTable tbody tr").remove();
+
+   loadStations(local.context);
 }
 
 function loadStations(context) {
@@ -47,8 +50,8 @@ $(document).ready(function() {
    });
 
    getContext(function(ctx) {
-      context = ctx;
-      loadStations(context);   
+      local.context = ctx;
+      loadStations(local.context);
    });
 
    $("#newStationButton").click(function() {

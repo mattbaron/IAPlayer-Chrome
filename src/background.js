@@ -72,6 +72,11 @@ Context.prototype.parseStationData = function(rawStreamData, callback) {
       console.log("Exception parsing station data: " + exception);
       console.log(exception);
    }
+
+   var _this = this;
+   this.saveData(function() {
+      _this.loadData();
+   });
 };
 
 Context.prototype.loadStationData = function(callback) {
@@ -93,8 +98,27 @@ Context.prototype.loadStationData = function(callback) {
    });
 };
 
-Context.prototype.saveStationData = function(callback) {
+Context.prototype.loadData = function(callback) {
 
+   chrome.storage.sync.get(null, function(data) {
+      console.log("loadData()");
+      console.log(data);
+      if(callback !== undefined) {
+         callback(data);
+      }
+   });
+};
+
+Context.prototype.saveData = function(callback) {
+   var saveData = {};
+   saveData["stationMap"] = this.stationStore.stationMap;
+
+   chrome.storage.sync.set(saveData, function() {
+      console.log("Done saving data");
+      if(callback !== undefined) {
+         callback();
+      }
+   });
 };
 
 Context.prototype.initEvents = function() {
@@ -124,7 +148,9 @@ function init(callback) {
    if(context.initialized === true) {
       callback(context);
    } else {
-      context.loadStationData(callback);
+      context.loadStationData(function() {
+
+      });
    }
 
 }

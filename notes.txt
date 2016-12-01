@@ -1,0 +1,35 @@
+https://developer.chrome.com/extensions/storage
+
+StationData.save = function() {
+   logmsg("Saving station data - " + hashCount(StationData.data) + " items");
+   var tmp = new Object;
+   tmp["stationData"] = StationData.data;
+   chrome.storage.sync.set(tmp, null);
+};
+
+StationData.clear = function() {
+   logmsg("Clearing station data");
+   chrome.storage.sync.remove("stationData");
+   StationData.data = {};
+};
+
+StationData.load = function(callback) {
+   StationData.data = {};
+   chrome.storage.sync.get("stationData", function(data) {
+      if(data != null) {
+         StationData.data = data["stationData"];
+         if(callback != null) {
+            callback(StationData.getIds());
+         }
+      }
+   });
+
+};
+
+
+
+
+        chrome.storage.sync.set({'value': theValue}, function() {
+          // Notify that we saved.
+          message('Settings saved');
+        });
