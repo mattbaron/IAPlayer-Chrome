@@ -110,10 +110,11 @@ Context.prototype.loadData = function(callback) {
 };
 
 Context.prototype.saveData = function(callback) {
-   var saveData = {};
-   saveData["stationMap"] = this.stationStore.stationMap;
 
-   chrome.storage.sync.set(saveData, function() {
+   console.log("saveData()");
+   console.log(this.stationStore.stationMap);
+
+   chrome.storage.sync.set({"stationMap": this.stationStore.stationMap}, function() {
       console.log("Done saving data");
       if(callback !== undefined) {
          callback();
