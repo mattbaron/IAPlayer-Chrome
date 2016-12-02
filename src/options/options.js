@@ -46,7 +46,7 @@ function loadStations(context) {
 $(document).ready(function() {
 
    $(".nav a").click(function(event) {
-      event.preventDefault();
+      //event.preventDefault();
    });
 
    getContext(function(ctx) {
