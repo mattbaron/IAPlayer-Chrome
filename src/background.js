@@ -54,47 +54,21 @@ Context.prototype.playStation = function(id) {
 
 };
 
-Context.prototype.parseStationData = function(rawStreamData, callback) {
-   try {
-      var json = JSON.parse(rawStreamData);
-
-      this.stationStore = new StationStore();
-
-      for(var id in json) {
-         json[id].id = id;
-         this.stationStore.add(json[id]);
-      }
-
-      callback(this);
-      this.initialized = true;
-
-   } catch(exception) {
-      console.log("Exception parsing station data: " + exception);
-      console.log(exception);
-   }
-
-   var _this = this;
-   this.saveData(function() {
-      _this.loadData();
-   });
-};
-
-Context.prototype.loadStationData = function(callback) {
-
-   console.log("background.js loadStationData()");
-
+Context.prototype.loadDefaultStations = function(callback) {
    var _this = this;
 
-   $.ajax({
-      url: "/stations.json",
-      method: "GET",
-      dataType: "html",
-      success: function(rawStreamData) {
-         _this.parseStationData(rawStreamData, callback);
-      },
-      error: function() {
-         console.log("Error loading stream data");
+   $.getJSON('/stations.json', function(data) {
+
+      for(id in data) {
+         data[id].id = id;
       }
+
+      this.stationStore = new StationStore(data);
+
+      if(callback !== undefined) {
+         callback(data);
+      }
+
    });
 };
 
@@ -149,13 +123,9 @@ function init(callback) {
    if(context.initialized === true) {
       callback(context);
    } else {
-      context.loadStationData(function() {
-
-      });
+      context.loadDefaultStations();
+      callback(context);
    }
-
-   loadDefaultStations();
-
 }
 
 $(document).ready(function() {

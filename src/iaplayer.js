@@ -27,8 +27,17 @@ function loadDefaultStations(callback) {
 //
 ///////////////////////////////////////////////////////////////////////////////
 
-function StationStore() {
-   this.stationMap = {};
+function StationStore(map) {
+   if(map !== undefined) {
+      Log.i("MAP");
+      Log.i(map);
+      this.stationMap = map;
+   } else {
+      this.stationMap = {};
+   }
+
+   Log.i("StationStore()");
+   Log.i(this.stationMap);
 }
 
 StationStore.prototype.add = function(object) {
@@ -49,6 +58,8 @@ StationStore.prototype.getStationMap = function() {
 StationStore.prototype.getIDs = function() {
    var keys = [];
    var hash = this.stationMap;
+   Log.i("getIDs()");
+   Log.i(this.stationMap);
    for(var key in hash) keys.push(key);
    return keys.sort(function(a,b) {return hash[a].name.localeCompare(hash[b].name)});
 };

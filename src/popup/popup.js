@@ -5,6 +5,9 @@ function Popup() {
 function loadStationList(context) {
    var ids = context.stationStore.getIDs();
 
+   Log.i("loadStationList()");
+   Log.i(ids);
+
    var option = $("<option>");
    option.attr("value", "");
    option.text("Select a station...");
