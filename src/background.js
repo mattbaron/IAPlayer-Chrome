@@ -54,23 +54,6 @@ Context.prototype.playStation = function(id) {
 
 };
 
-Context.prototype.loadDefaultStations = function(callback) {
-   var _this = this;
-
-   $.getJSON('/stations.json', function(data) {
-
-      for(id in data) {
-         data[id].id = id;
-      }
-
-      _this.stationStore = new StationStore(data);
-
-      if(callback !== undefined) {
-         callback(data);
-      }
-
-   });
-};
 
 Context.prototype.loadData = function(callback) {
 
@@ -123,8 +106,10 @@ function init(callback) {
    if(context.initialized === true) {
       callback(context);
    } else {
-      context.loadDefaultStations();
-      callback(context);
+      loadDefaultStations(function(data) {
+         context.stationStore = new StationStore(data);
+         callback(context);
+      });
    }
 }
 
@@ -134,6 +119,7 @@ $(document).ready(function() {
 
    init(function(context) {
       console.log("background initialization complete");
+      console.log(context);
    });
 
 });

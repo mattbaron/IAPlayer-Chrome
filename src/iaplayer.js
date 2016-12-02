@@ -1,3 +1,9 @@
+///////////////////////////////////////////////////////////////////////////////
+//
+// iaplayer.js
+//
+///////////////////////////////////////////////////////////////////////////////
+
 function getContext(callback) {
    chrome.runtime.getBackgroundPage(function(background) {
       if(callback !== undefined) {
@@ -16,8 +22,15 @@ function getBackgroundPage(callback) {
 
 function loadDefaultStations(callback) {
    $.getJSON('/stations.json', function(data) {
-      Log.i("loadDefaultStations()");
-      Log.i(data);
+
+      for(id in data) {
+         data[id].id = id;
+      }
+
+      if(callback !== undefined) {
+         callback(data);
+      }
+
    });
 };
 
@@ -29,15 +42,10 @@ function loadDefaultStations(callback) {
 
 function StationStore(map) {
    if(map !== undefined) {
-      Log.i("MAP");
-      Log.i(map);
       this.stationMap = map;
    } else {
       this.stationMap = {};
    }
-
-   Log.i("StationStore()");
-   Log.i(this.stationMap);
 }
 
 StationStore.prototype.add = function(object) {
@@ -163,14 +171,3 @@ Station.prototype.toString = function() {
   return "name=" + this.name + ", id=" + this.id + ", url=" + this.url;
 };
 
-Station.prototype.export = function() {
-   var object = {};
-   object.id = this.id;
-   object.name = this.name;
-   object.url = this.url;
-   return object;
-};
-
-Station.import = function(object) {
-   return new Station(object.name, object.url, object.id);
-};
