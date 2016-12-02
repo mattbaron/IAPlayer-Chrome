@@ -24,8 +24,12 @@ function StationStore() {
    this.stationMap = new Array();
 }
 
-StationStore.prototype.addStation = function(newStation) {
-   this.stationMap[newStation.id] = newStation;
+StationStore.prototype.add = function(object) {
+
+   if(typeof object === 'object') {
+      Log.i("StationStore.add is Object");
+   }
+   this.stationMap[object.id] = object;
 };
 
 StationStore.prototype.getStation = function(id) {
@@ -44,6 +48,14 @@ StationStore.prototype.getIDs = function() {
    var hash = this.stationMap;
    for(var key in hash) keys.push(key);
    return keys.sort(function(a,b) {return hash[a].name.localeCompare(hash[b].name)});
+};
+
+StationStore.prototype.export = function() {
+   return this.stationMap;
+};
+
+StationStore.prototype.import = function(stationMap) {
+   this.stationMap = object;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -137,3 +149,14 @@ Station.prototype.toString = function() {
   return "name=" + this.name + ", id=" + this.id + ", url=" + this.url;
 };
 
+Station.prototype.export = function() {
+   var object = {};
+   object.id = this.id;
+   object.name = this.name;
+   object.url = this.url;
+   return object;
+};
+
+Station.import = function(object) {
+   return new Station(object.name, object.url, object.id);
+};

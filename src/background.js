@@ -61,8 +61,8 @@ Context.prototype.parseStationData = function(rawStreamData, callback) {
       this.stationStore = new StationStore();
 
       for(var id in json) {
-         var s = new Station(json[id].name, json[id].url, id);
-         this.stationStore.addStation(s);
+         json[id].id = id;
+         this.stationStore.add(json[id]);
       }
 
       callback(this);
@@ -112,10 +112,11 @@ Context.prototype.loadData = function(callback) {
 Context.prototype.saveData = function(callback) {
 
    console.log("saveData()");
-   console.log(this.stationStore.stationMap);
+   console.log(this.stationStore.export());
 
-   chrome.storage.sync.set({"stationMap": this.stationStore.stationMap}, function() {
-      console.log("Done saving data");
+   var data = this.stationStore.export();
+
+   chrome.storage.sync.set({"stationMap": data}, function() {
       if(callback !== undefined) {
          callback();
       }
