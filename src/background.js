@@ -63,7 +63,7 @@ Context.prototype.loadDefaultStations = function(callback) {
          data[id].id = id;
       }
 
-      this.stationStore = new StationStore(data);
+      _this.stationStore = new StationStore(data);
 
       if(callback !== undefined) {
          callback(data);
