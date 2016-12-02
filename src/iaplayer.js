@@ -14,6 +14,13 @@ function getBackgroundPage(callback) {
    });
 }
 
+function loadDefaultStations(callback) {
+   $.getJSON('/stations.json', function(data) {
+      Log.i("loadDefaultStations()");
+      Log.i(data);
+   });
+};
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 // StationStore
@@ -21,14 +28,10 @@ function getBackgroundPage(callback) {
 ///////////////////////////////////////////////////////////////////////////////
 
 function StationStore() {
-   this.stationMap = new Array();
+   this.stationMap = {};
 }
 
 StationStore.prototype.add = function(object) {
-
-   if(typeof object === 'object') {
-      Log.i("StationStore.add is Object");
-   }
    this.stationMap[object.id] = object;
 };
 

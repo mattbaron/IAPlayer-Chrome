@@ -107,20 +107,19 @@ Context.prototype.loadData = function(callback) {
          callback(data);
       }
    });
+
 };
 
 Context.prototype.saveData = function(callback) {
 
    console.log("saveData()");
-   console.log(this.stationStore.export());
 
-   var data = this.stationStore.export();
-
-   chrome.storage.sync.set({"stationMap": data}, function() {
+   chrome.storage.sync.set({"stationMap": this.stationStore.export()}, function() {
       if(callback !== undefined) {
          callback();
       }
    });
+
 };
 
 Context.prototype.initEvents = function() {
@@ -154,6 +153,8 @@ function init(callback) {
 
       });
    }
+
+   loadDefaultStations();
 
 }
 
