@@ -69,9 +69,8 @@ Context.prototype.loadData = function(callback) {
 
 Context.prototype.saveData = function(callback) {
 
-   console.log("saveData()");
-
    chrome.storage.sync.set({"stationMap": this.stationStore.export()}, function() {
+      console.log("Station data saved");
       if(callback !== undefined) {
          callback();
       }
@@ -108,6 +107,7 @@ function init(callback) {
    } else {
       loadDefaultStations(function(data) {
          context.stationStore = new StationStore(data);
+         context.saveData();
          callback(context);
       });
    }
@@ -120,6 +120,8 @@ $(document).ready(function() {
    init(function(context) {
       console.log("background initialization complete");
       console.log(context);
+
+      context.initEvents();
    });
 
 });
