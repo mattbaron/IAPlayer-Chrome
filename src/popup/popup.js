@@ -46,7 +46,7 @@ $(document).ready(function() {
       initEvents(context);
       loadStationList(context);
 
-      if(!context.player.paused) {
+      if(!context.player.isPaused()) {
          $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
          $("#playPauseButton > span").addClass("glyphicon-pause");
       } else {
@@ -66,17 +66,12 @@ $(document).ready(function() {
    $("#playPauseButton").click(function() {
       var player = Popup.context.player;
 
-      if(player.src === undefined || player.src.length === 0) {
-         return;
-      }
-
-      if(!player.paused) {
-         Log.i("pause");
+      if(!player.isPaused()) {
          player.pause();
       } else {
-         Log.i("play");
          player.play();
       }
+
    });
 
 });

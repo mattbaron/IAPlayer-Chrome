@@ -2,7 +2,7 @@ function Context() {
    Context.instance = this;
    this.initialized = false;
    this.stationStore = new StationStore();
-   this.player = new Audio();
+   this.player = new AudioPlayer();
    this.currentStation = null;
 }
 
@@ -10,7 +10,6 @@ Context.getInstance = function() {
    if(Context.instance === undefined) {
       console.log("background.js Conext.instance is null.  Returning new instance.");
       Context.instance = new Context();
-      Context.instance.initEvents();
    }
    return Context.instance;
 };
@@ -27,33 +26,29 @@ Context.prototype.getCurrentStation = function() {
    return this.currentStation;
 };
 
-Context.prototype.playStream = function(streamURL) {
-   this.player.src = streamURL;
-   this.player.play();
+Context.prototype.playURL = function(url) {
+   console.log("playURL() " + url);
+   this.player.prepare(url, function(player) {
+      console.log("playURL() ready " + url);
+      player.play();
+   });
 };
 
 Context.prototype.loadStation = function(station) {
    this.currentStation = station;
-   this.player = station.id;
 };
 
 Context.prototype.playStation = function(id) {
 
-   console.log("Playing station " + id);
-
    this.currentStation = this.stationStore.getStation(id);
 
+   console.log("Playing station " + id);
    console.log(this.currentStation);
 
-   var _this = this;
-
-   var playlist = new Playlist(this.currentStation.url);
-   playlist.getStreams(function(streams) {
-      _this.playStream(streams[0]);
-   });
-
+   if(this.currentStation !== undefined) {
+      this.playURL(this.currentStation.url);
+   }
 };
-
 
 Context.prototype.loadData = function(callback) {
 
@@ -73,23 +68,6 @@ Context.prototype.saveData = function(callback) {
       }
    });
 
-};
-
-Context.prototype.initEvents = function() {
-   var _this = this;
-   var player = this.player;
-
-   this.player.addEventListener("error", function(e) {
-
-      console.log("player error"); console.log(e);
-
-      if(!player.src.endsWith(";")) {
-         player.src = player.src + ";";
-         Log.i("Trying " + player.src);
-         player.play();
-      }
-
-   });
 };
 
 function getContext() {
@@ -117,8 +95,6 @@ $(document).ready(function() {
    init(function(context) {
       console.log("background initialization complete");
       console.log(context);
-
-      context.initEvents();
    });
 
 });
