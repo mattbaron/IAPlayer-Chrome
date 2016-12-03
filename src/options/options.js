@@ -23,7 +23,6 @@ function newStationDialog() {
 
 function saveStation() {
    var id = $("#stationDialog").attr("data-id");
-   console.log(id);
 
    if(id === undefined) {
 
@@ -35,6 +34,9 @@ function saveStation() {
       station.name = $("#stationDialog #stationName").val();
       local.context.saveData();
    }
+   loadStations(local.context);
+   $("#stationDialog").removeAttr("data-id");
+
 }
 
 function loadStations(context) {
@@ -75,7 +77,7 @@ $(document).ready(function() {
       newStationDialog();
    });
 
-   $("#saveButton").click(function() {
+   $("#saveStationButton").click(function() {
       saveStation();
    });
 });

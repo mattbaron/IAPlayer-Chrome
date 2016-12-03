@@ -58,8 +58,6 @@ Context.prototype.playStation = function(id) {
 Context.prototype.loadData = function(callback) {
 
    chrome.storage.sync.get(null, function(data) {
-      console.log("loadData()");
-      console.log(data);
       if(callback !== undefined) {
          callback(data);
       }
@@ -70,7 +68,6 @@ Context.prototype.loadData = function(callback) {
 Context.prototype.saveData = function(callback) {
 
    chrome.storage.sync.set({"stationMap": this.stationStore.export()}, function() {
-      console.log("Station data saved");
       if(callback !== undefined) {
          callback();
       }

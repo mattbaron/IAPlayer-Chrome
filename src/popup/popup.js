@@ -5,9 +5,6 @@ function Popup() {
 function loadStationList(context) {
    var ids = context.stationStore.getIDs();
 
-   Log.i("loadStationList()");
-   Log.i(ids);
-
    var option = $("<option>");
    option.attr("value", "");
    option.text("Select a station...");
@@ -56,7 +53,6 @@ $(document).ready(function() {
          $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
          $("#playPauseButton > span").addClass("glyphicon-play");
       }
-      context.stationStore.export();
    });
 
    $(".btn").click(function(event) {

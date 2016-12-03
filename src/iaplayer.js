@@ -66,8 +66,6 @@ StationStore.prototype.getStationMap = function() {
 StationStore.prototype.getIDs = function() {
    var keys = [];
    var hash = this.stationMap;
-   Log.i("getIDs()");
-   Log.i(this.stationMap);
    for(var key in hash) keys.push(key);
    return keys.sort(function(a,b) {return hash[a].name.localeCompare(hash[b].name)});
 };
