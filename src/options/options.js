@@ -25,7 +25,7 @@ function newStationDialog() {
 
 function loadStations(context) {
 
-   $("#stationTable tr").remove();
+   $("#stationTable tbody tr").remove();
 
    var ids = context.stationStore.getIDs();
    
