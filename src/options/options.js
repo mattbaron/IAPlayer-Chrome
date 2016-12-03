@@ -4,7 +4,6 @@ var local = new Object();
 
 function editStationDialog(id) {
    var station = local.context.stationStore.getStation(id);
-
    $("#stationDialogTitle").text("Edit Station");
    $("#stationDialog").attr("data-id", station.id);
    $("#stationDialog #stationName").val(station.name);
@@ -18,22 +17,24 @@ function newStationDialog() {
    $("#stationDialog #stationName").val("");
    $("#stationDialog #stationURL").val("");
    $("#stationDialog").modal("show");
-   $("#stationTable tbody tr").remove();
 }
 
 function saveStation() {
    var id = $("#stationDialog").attr("data-id");
 
    if(id === undefined) {
-
+      var station = {};
+      station.url = $("#stationDialog #stationURL").val();
+      station.name = $("#stationDialog #stationName").val();
+      local.context.stationStore.add(station);
    } else {
       $("#stationDialog").modal("hide");
       var station  = local.context.stationStore.getStation(id);
-      console.log(station);
       station.url = $("#stationDialog #stationURL").val();
       station.name = $("#stationDialog #stationName").val();
-      local.context.saveData();
    }
+
+   local.context.saveData();
    loadStations(local.context);
    $("#stationDialog").removeAttr("data-id");
 
@@ -79,5 +80,6 @@ $(document).ready(function() {
 
    $("#saveStationButton").click(function() {
       saveStation();
+      $("#stationDialog").modal("hide");
    });
 });

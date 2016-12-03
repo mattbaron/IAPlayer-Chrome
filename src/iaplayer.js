@@ -49,6 +49,9 @@ function StationStore(map) {
 }
 
 StationStore.prototype.add = function(object) {
+   if(object.id === undefined) {
+      object.id = getUUID();
+   }
    this.stationMap[object.id] = object;
 };
 
