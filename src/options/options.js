@@ -24,7 +24,10 @@ function newStationDialog() {
 }
 
 function loadStations(context) {
-  var ids = context.stationStore.getIDs();
+
+   $("#stationTable tr").remove();
+
+   var ids = context.stationStore.getIDs();
    
    for(var i = 0; i < ids.length; i++) {
       var station = context.stationStore.getStation(ids[i]);
@@ -46,7 +49,7 @@ function loadStations(context) {
 $(document).ready(function() {
 
    $(".nav a").click(function(event) {
-      //event.preventDefault();
+
    });
 
    getContext(function(ctx) {
