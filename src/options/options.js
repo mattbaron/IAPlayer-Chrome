@@ -19,8 +19,22 @@ function newStationDialog() {
    $("#stationDialog #stationURL").val("");
    $("#stationDialog").modal("show");
    $("#stationTable tbody tr").remove();
+}
 
-   loadStations(local.context);
+function saveStation() {
+   var id = $("#stationDialog").attr("data-id");
+   console.log(id);
+
+   if(id === undefined) {
+
+   } else {
+      $("#stationDialog").modal("hide");
+      var station  = local.context.stationStore.getStation(id);
+      console.log(station);
+      station.url = $("#stationDialog #stationURL").val();
+      station.name = $("#stationDialog #stationName").val();
+      local.context.saveData();
+   }
 }
 
 function loadStations(context) {
@@ -61,4 +75,7 @@ $(document).ready(function() {
       newStationDialog();
    });
 
+   $("#saveButton").click(function() {
+      saveStation();
+   });
 });
