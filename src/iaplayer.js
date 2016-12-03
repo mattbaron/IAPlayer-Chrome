@@ -133,29 +133,72 @@ Playlist.prototype.getStreams = function(callback) {
 // Player
 //
 ///////////////////////////////////////////////////////////////////////////////
-function Player() {
+function AudioPlayer() {
    this.audio = new Audio();
+   this.events = Array();
+   
+   this.currentStream;
+   
+   var _this = this;
+   
+   this.audio.addEventListener("error", function(event) {
+      if(!_this.audio.src.endsWith(";")) {
+         _this.audio.src = audio.src + ";";
+         _this.audio.play();
+      } else {
+         _this.audio.pause;
+         _this.audio.src = _this.currentStream;
+      }
+   });
 }
 
-function setURL(url) {
-   this.audio.src = url;
-}
+AudioPlayer.prototype.addEventListener = function(name, callback) {
+   this.events[name] = callback;
+};
 
-function play() {
+AudioPlayer.prototype.setSource = function(streamURL) {
+   this.audio.src = this.currentStream = streamURL;
+};
+
+AudioPlayer.prototype.prepare = function(url, readyCallback) {
+   
+   var _this = this;
+   
+   if(url.toLowerCase().endsWith(".pls") || url.toLowerCase().endsWith(".m3u")) {
+      
+      var playlist = new Playlist(url);
+
+      playlist.getStreams(function(streams) {
+         _this.setSource(streams[0]);
+         if(readyCallback !== undefined) {
+            readyCallback();
+         }
+      });
+      
+   } else {
+      _this.setSource(url);
+      if(readyCallback !== undefined) {
+         readyCallback();
+      }
+   }
+   
+};
+
+AudioPlayer.prototype.play = function() {
    this.audio.play();
-}
+};
 
-function pause() {
+AudioPlayer.prototype.pause = function() {
    this.audio.pause();
-}
+};
 
-function toggle() {
+AudioPlayer.prototype.togglePlayPause = function() {
    if(!this.audio.paused) {
       this.audio.pause();
    } else {
       this.audio.play();
    }
-}
+};
 
 ///////////////////////////////////////////////////////////////////////////////
 //
