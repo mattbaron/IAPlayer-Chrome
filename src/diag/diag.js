@@ -3,7 +3,7 @@ $(document).ready(function() {
 
    getContext(function(context) {
       context.loadData(function(data) {
-         $("#content").text(data.toString());
+         $("#stationMap").html(JSON.stringify(data, null, 3));
       });
    });
 
