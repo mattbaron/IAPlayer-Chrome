@@ -28,8 +28,15 @@ StationData.load = function(callback) {
 
 
 
+font-family: Oswald,Arial,sans-serif;
+text-rendering: optimizeLegibility;
+-webkit-font-smoothing: antialiased;
 
-        chrome.storage.sync.set({'value': theValue}, function() {
-          // Notify that we saved.
-          message('Settings saved');
-        });
+
+a:hover {
+    transition: all .25s;
+    transition-property: all;
+    transition-duration: 0.25s;
+    transition-timing-function: initial;
+    transition-delay: initial;
+}
