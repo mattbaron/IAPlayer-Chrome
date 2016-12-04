@@ -1,0 +1,13 @@
+body {
+   margin: 10px;
+}
+
+#main {
+   min-width: 320px;
+   height: 300px;
+   overflow-y: auto;
+}
+
+#stationList {
+
+}
