@@ -2,8 +2,9 @@
 <html>
    <head>
       <title>Internet Audio Player</title>
-      <link rel="stylesheet" href="popout.css">
+      <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
       <link rel="stylesheet" href="/src/iaplayer.css">
+      <link rel="stylesheet" href="popout.css">
    </head>
 
    <body>
@@ -18,7 +19,13 @@
       <div id="stationList"></div>
 
       <div id="contentBottom">
-         <div id="buttonContainer"></div>
+         <div id="buttonContainer">
+
+            <button type="button" id="playPauseButton" class="btn btn-default">
+               <span class="glyphicon glyphicon-play"></span>
+            </button>
+
+         </div>
       </div>
 
    </body>
