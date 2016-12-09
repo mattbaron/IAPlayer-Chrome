@@ -74,5 +74,14 @@ $(document).ready(function() {
 
    });
 
+   $("#popoutButton").click(function() {
+      chrome.windows.create({
+         url: "/src/popout/popout.html",
+         type: "popup",
+         width: 400,
+         height: 400
+      });
+   });
+
 });
 
