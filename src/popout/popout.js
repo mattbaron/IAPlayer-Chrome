@@ -17,13 +17,14 @@ function resize() {
    );
 }
 
-function unSelectStations() {
-   $("#stationList div").removeClass("nowPlaying");
-}
-
 function selectStation(id) {
-   unSelectStations();
+   $("#stationList div").removeClass("nowPlaying");
    $("#" + id).addClass("nowPlaying");
+   $("#stationList").scrollTop(
+      $("#stationList").scrollTop() +
+      $(".nowPlaying").position().top -
+      $("#stationList").height() / 2
+   );
 }
 
 function loadStationItem(context, id) {
