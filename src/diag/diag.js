@@ -12,17 +12,37 @@ function test() {
    });
 }
 
+function init() {
+
+   getContext(function(ctx) {
+
+      ctx.loadData(function(stationMap) {
+         $("#stationMap").html(JSON.stringify(stationMap, null, 3));
+         console.log(stationMap);
+      });
+
+   });
+}
 
 $(document).ready(function() {
 
-   getContext(function(context) {
-      context.loadData(function(data) {
-         $("#stationMap").html(JSON.stringify(data, null, 3));
-      });
+   $("#navClearData").click(function() {
+      chrome.storage.sync.clear();
+      init();
    });
 
-   $("#testButton").click(function() {
-      test();
+   $("#navLoadDefaults").click(function() {
+
+      getContext(function(ctx) {
+
+         loadDefaultStations(function(stationMap) {
+            console.log(stationMap);
+            ctx.setStationMap(stationMap);
+            ctx.saveData();
+            init();
+         });
+      });
+
    });
 
 });

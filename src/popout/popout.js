@@ -46,7 +46,7 @@ function loadStationItem(context, id) {
    div.addClass("stationListItem");
    div.appendTo($("#stationList"));
 
-   div.click(function () {
+   div.click(function() {
       var id = $(this).attr("data-id");
       selectStation(id);
       context.playStation(id);
@@ -61,7 +61,7 @@ function loadStationList(context) {
 }
 
 function initEvents(context) {
-   context.addEventListener("error", function (event) {
+   context.addEventListener("error", function(event) {
       Log.i(event);
    });
 }
@@ -74,9 +74,13 @@ function updateUI(context) {
    }
 
    if (context.player.isMuted()) {
-      $("#muteButton span").removeClass("glyphicon-volume-up glyphicon-volume-off").addClass("glyphicon-volume-off");
+      $("#muteButton span")
+         .removeClass("glyphicon-volume-up glyphicon-volume-off")
+         .addClass("glyphicon-volume-off");
    } else {
-      $("#muteButton span").removeClass("glyphicon-volume-up glyphicon-volume-off").addClass("glyphicon-volume-up");
+      $("#muteButton span")
+         .removeClass("glyphicon-volume-up glyphicon-volume-off")
+         .addClass("glyphicon-volume-up");
    }
 }
 
@@ -90,28 +94,28 @@ function init(ctx) {
       selectStation(currentStation.id);
    }
 
-   ctx.player.addEventListener("playing", function () {
+   ctx.player.addEventListener("playing", function() {
       updateUI(ctx);
    });
 
-   ctx.player.addEventListener("pause", function () {
+   ctx.player.addEventListener("pause", function() {
       updateUI(ctx);
    });
 
-   ctx.player.addEventListener("volumechange", function () {
+   ctx.player.addEventListener("volumechange", function() {
       updateUI(ctx);
    });
 
-   ctx.addEventListener("onNewStation", function (context, id) {
+   ctx.addEventListener("onNewStation", function(context, id) {
       Log.i("popout.js onNewStation");
       selectStation(id);
    });
 
-   ctx.addEventListener("onConfigChange", function (context, id) {
+   ctx.addEventListener("onConfigChange", function(context, id) {
 
    });
 
-   $("#playPauseButton").click(function () {
+   $("#playPauseButton").click(function() {
       if (ctx.player.isPaused()) {
          ctx.player.play();
       } else {
@@ -119,7 +123,7 @@ function init(ctx) {
       }
    });
 
-   $("#muteButton").click(function () {
+   $("#muteButton").click(function() {
       if (ctx.player.isMuted()) {
          ctx.player.mute(false);
       } else {
@@ -127,13 +131,13 @@ function init(ctx) {
       }
    });
 
-   $("#settingsButton").click(function () {
+   $("#settingsButton").click(function() {
       chrome.tabs.create({
          url: "/src/options/options.html",
       });
    });
 
-   $(".btn").click(function (event) {
+   $(".btn").click(function(event) {
       $(this).blur()
    });
 
@@ -141,18 +145,18 @@ function init(ctx) {
    resize();
 }
 
-window.onload = function () {
+window.onload = function() {
    resize();
 };
 
-$(document).ready(function () {
+$(document).ready(function() {
 
-   getContext(function (ctx) {
+   getContext(function(ctx) {
       init(ctx);
    });
 
 });
 
-$(window).resize(function () {
+$(window).resize(function() {
    resize();
 });
