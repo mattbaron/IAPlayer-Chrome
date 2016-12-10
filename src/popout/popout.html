@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <title>Internet Audio Player</title>
-      <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-      <link rel="stylesheet" href="/src/iaplayer.css">
-      <link rel="stylesheet" href="popout.css">
-   </head>
 
-   <body>
-      <script src="/lib/jquery.min.js"></script>
-      <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
-      <script src="/lib/menu.js"></script>
-      <script src="/src/iaplayer.js"></script>
-      <script src="/src/utils.js"></script>
-      <script src="popout.js"></script>
+<head>
+   <title>Internet Audio Player</title>
+   <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+   <link rel="stylesheet" href="/src/iaplayer.css">
+   <link rel="stylesheet" href="popout.css">
+</head>
 
-      <div id="contentTop"></div>
+<body>
+   <script src="/lib/jquery.min.js"></script>
+   <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+   <script src="/lib/menu.js"></script>
+   <script src="/src/iaplayer.js"></script>
+   <script src="/src/utils.js"></script>
+   <script src="popout.js"></script>
 
-      <div id="stationList"></div>
+   <div id="contentTop"></div>
 
-      <div id="contentBottom">
-         <div id="buttonContainer">
+   <div id="stationList"></div>
 
-            <button type="button" id="playPauseButton" class="btn btn-default btn-md">
-               <span class="glyphicon glyphicon-play"></span>
-            </button>
+   <div id="contentBottom">
 
-            <button type="button" id="muteButton" class="btn btn-default btn-md">
-               <span class="glyphicon glyphicon-volume-up"></span>
-            </button>
+      <div id="buttonContainer">
+         <button type="button" id="muteButton" class="btn btn-default btn-md">
+            <span class="glyphicon glyphicon-volume-up"></span>
+         </button>
+         <button type="button" id="playPauseButton" class="btn btn-default btn-md">
+            <span class="glyphicon glyphicon-play"></span>
+         </button>
+         <button type="button" id="settingsButton" class="btn btn-default btn-md">
+            <span class="glyphicon glyphicon-cog"></span>
+         </button>
 
-         </div>
       </div>
+   </div>
 
-   </body>
+</body>
 
 </html>

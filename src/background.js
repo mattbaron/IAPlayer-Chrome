@@ -7,15 +7,16 @@ function Context() {
    this.eventListeners = {};
 }
 
-Context.getInstance = function() {
-   if(Context.instance === undefined) {
+Context.getInstance = function () {
+   if (Context.instance === undefined) {
       Context.instance = new Context();
    }
    return Context.instance;
 };
 
-Context.prototype.addEventListener = function(name, callback) {
-   if(this.eventListeners[name] === undefined) {
+Context.prototype.addEventListener = function (name, callback) {
+   name = name.toLowerCase();
+   if (this.eventListeners[name] === undefined) {
       this.eventListeners[name] = Array();
    }
 
@@ -23,70 +24,77 @@ Context.prototype.addEventListener = function(name, callback) {
 
 };
 
-Context.prototype.fireListeners = function(name, data) {
-   if(this.eventListeners[name] === undefined) {
+Context.prototype.fireListeners = function (name, data) {
+   name = name.toLowerCase();
+   if (this.eventListeners[name] === undefined) {
       return;
    }
 
-   for(callback of this.eventListeners[name]) {
-      Log.i("calling back " + name);
-      callback(this, data);
+   for (listener of this.eventListeners[name]) {
+      if (listener === null || listener === undefined) {
+         console.log("WARNING: null listener in background.js");
+      } else {
+         console.log("calling back " + name);
+         listener(this, data);
+      }
    }
 
 };
 
-Context.prototype.getStationStore = function() {
+Context.prototype.getStationStore = function () {
    return this.stationStore;
 };
 
-Context.prototype.getPlayer = function() {
+Context.prototype.getPlayer = function () {
    return this.player;
 };
 
-Context.prototype.getCurrentStation = function() {
+Context.prototype.getCurrentStation = function () {
    return this.currentStation;
 };
 
-Context.prototype.playURL = function(url) {
+Context.prototype.playURL = function (url) {
    console.log("playURL() " + url);
-   this.player.prepare(url, function(player) {
+   this.player.prepare(url, function (player) {
       console.log("playURL() ready " + url);
       player.play();
    });
 };
 
-Context.prototype.loadStation = function(station) {
+Context.prototype.loadStation = function (station) {
    this.currentStation = station;
 };
 
-Context.prototype.playStation = function(id) {
+Context.prototype.playStation = function (id) {
 
    this.currentStation = this.stationStore.getStation(id);
 
    console.log("Playing station " + id);
    console.log(this.currentStation);
 
-   if(this.currentStation !== undefined) {
+   if (this.currentStation !== undefined) {
       this.playURL(this.currentStation.url);
    }
 
-   this.fireListeners("newstation", id);
+   this.fireListeners("onNewStation", id);
 };
 
-Context.prototype.loadData = function(callback) {
+Context.prototype.loadData = function (callback) {
 
-   chrome.storage.sync.get(null, function(data) {
-      if(callback !== undefined) {
+   chrome.storage.sync.get(null, function (data) {
+      if (callback !== undefined) {
          callback(data);
       }
    });
 
 };
 
-Context.prototype.saveData = function(callback) {
+Context.prototype.saveData = function (callback) {
 
-   chrome.storage.sync.set({"stationMap": this.stationStore.export()}, function() {
-      if(callback !== undefined) {
+   chrome.storage.sync.set({
+      "stationMap": this.stationStore.export()
+   }, function () {
+      if (callback !== undefined) {
          callback();
       }
    });
@@ -100,10 +108,10 @@ function getContext() {
 function init(callback) {
    var context = Context.getInstance();
 
-   if(context.initialized === true) {
+   if (context.initialized === true) {
       callback(context);
    } else {
-      loadDefaultStations(function(data) {
+      loadDefaultStations(function (data) {
          context.stationStore = new StationStore(data);
          context.saveData();
          callback(context);
@@ -111,11 +119,11 @@ function init(callback) {
    }
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
 
    console.log("background.js is ready");
 
-   init(function(context) {
+   init(function (context) {
       console.log("background initialization complete");
       console.log(context);
    });
