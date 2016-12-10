@@ -18,13 +18,17 @@ function resize() {
 }
 
 function selectStation(id) {
+
    $("#stationList div").removeClass("nowPlaying");
    $("#" + id).addClass("nowPlaying");
+
+   // Scroll to the currently selected item in #stationList
    $("#stationList").scrollTop(
       $("#stationList").scrollTop() +
       $(".nowPlaying").position().top -
       $("#stationList").height() / 2
    );
+
 }
 
 function loadStationItem(context, id) {
