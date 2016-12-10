@@ -53,6 +53,7 @@ $(document).ready(function() {
          $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
          $("#playPauseButton > span").addClass("glyphicon-play");
       }
+
    });
 
    $(".btn").click(function(event) {

@@ -51,7 +51,7 @@ function loadStationItem(context, id) {
 }
 
 function loadStationList(context) {
-   for(var id of context.stationStore.getIDs()) {
+   for(id of context.stationStore.getIDs()) {
       loadStationItem(context, id);
    }
 }
@@ -126,6 +126,11 @@ $(document).ready(function() {
 
       $(".btn").click(function(event) {
          $(this).blur()
+      });
+
+      ctx.addEventListener("newstation", function(context, id) {
+         Log.i("popout newstation");
+         selectStation(id);
       });
 
       updateUI(ctx);

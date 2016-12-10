@@ -4,14 +4,35 @@ function Context() {
    this.stationStore = new StationStore();
    this.player = new AudioPlayer();
    this.currentStation = null;
+   this.eventListeners = {};
 }
 
 Context.getInstance = function() {
    if(Context.instance === undefined) {
-      console.log("background.js Conext.instance is null.  Returning new instance.");
       Context.instance = new Context();
    }
    return Context.instance;
+};
+
+Context.prototype.addEventListener = function(name, callback) {
+   if(this.eventListeners[name] === undefined) {
+      this.eventListeners[name] = Array();
+   }
+
+   this.eventListeners[name].push(callback);
+
+};
+
+Context.prototype.fireListeners = function(name, data) {
+   if(this.eventListeners[name] === undefined) {
+      return;
+   }
+
+   for(callback of this.eventListeners[name]) {
+      Log.i("calling back " + name);
+      callback(this, data);
+   }
+
 };
 
 Context.prototype.getStationStore = function() {
@@ -48,6 +69,8 @@ Context.prototype.playStation = function(id) {
    if(this.currentStation !== undefined) {
       this.playURL(this.currentStation.url);
    }
+
+   this.fireListeners("newstation", id);
 };
 
 Context.prototype.loadData = function(callback) {
