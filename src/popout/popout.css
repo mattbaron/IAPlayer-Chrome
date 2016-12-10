@@ -1,87 +1,44 @@
 body {
-
    margin: 0px;
-
    padding: 0px;
-
 }
-
-
 
 #buttonContainer {
-
    text-align: center;
-
    padding-bottom: 10px;
-
 }
-
-
 
 #buttonContainer button {
-
    margin-left: 15px;
-
    margin-right: 15px;
-
 }
-
-
 
 #contentTop {
-
    margin-bottom: 10px;
-
 }
-
-
 
 #contentBottom {
-
    margin-top: 10px;
-
 }
-
-
 
 #stationList {
-
    overflow-y: scroll;
-
    border: 1px solid #eeeeee;
-
    margin-left: 10px;
-
    margin-right: 10px;
-
 }
-
-
 
 .stationListItem {
-
    padding: 10px;
-
    font-size: 14px;
-
    border-bottom: 1px #eeeeee solid;
-
    cursor: pointer;
-
 }
-
-
 
 .nowPlaying {
-
    background: #3F51B5;
-
    color: #ffffff;
-
 }
-
-
-
 
 
 /*
@@ -95,4 +52,3 @@ body {
 }
 
 */
-
