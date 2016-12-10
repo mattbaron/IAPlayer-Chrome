@@ -41,9 +41,8 @@ function loadStationItem(context, id) {
 
    var div = $("<div>");
 
-   div.attr("id", station.id);
-   div.attr("data-id", station.id);
-   div.html(station.name);
+   div.attr("id", station.id).attr("data-id", station.id).html(station.name);
+
    div.addClass("stationListItem");
    div.appendTo($("#stationList"));
 

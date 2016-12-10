@@ -27,6 +27,7 @@ body {
    padding: 10px;
    font-size: 14px;
    border-bottom: 1px #eeeeee solid;
+   cursor: pointer;
 }
 
 .nowPlaying {
