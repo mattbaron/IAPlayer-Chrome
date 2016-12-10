@@ -197,6 +197,10 @@ AudioPlayer.prototype.pause = function() {
    this.audio.pause();
 };
 
+AudioPlayer.prototype.mute = function(value) {
+   this.audio.muted = value;
+};
+
 AudioPlayer.prototype.togglePlayPause = function() {
    if(!this.audio.paused) {
       this.audio.pause();
@@ -207,6 +211,10 @@ AudioPlayer.prototype.togglePlayPause = function() {
 
 AudioPlayer.prototype.isPaused = function() {
    return this.audio.paused;
+};
+
+AudioPlayer.prototype.isMuted = function() {
+   return this.audio.muted;
 };
 
 ///////////////////////////////////////////////////////////////////////////////

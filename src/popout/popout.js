@@ -44,7 +44,7 @@ function loadStationItem(context, id) {
 
    div.click(function() {
       var id = $(this).attr("data-id");
-      selectStation(context, id);
+      selectStation(id);
       context.playStation(id);
    });
 
@@ -62,6 +62,20 @@ function initEvents(context) {
    });
 }
 
+function updateUI(context) {
+   if(!context.player.isPaused()) {
+      $("#playPauseButton span").removeClass("glyphicon-play glyphicon-pause").addClass("glyphicon-pause");
+   } else {
+      $("#playPauseButton span").removeClass("glyphicon-play glyphicon-pause").addClass("glyphicon-play");
+   }
+
+   if(context.player.isMuted()) {
+      $("#muteButton span").removeClass("glyphicon-volume-up glyphicon-volume-off").addClass("glyphicon-volume-off");
+   } else {
+      $("#muteButton span").removeClass("glyphicon-volume-up glyphicon-volume-off").addClass("glyphicon-volume-up");
+   }
+}
+
 function init() {
 
 }
@@ -73,14 +87,51 @@ window.onload = function() {
 $(document).ready(function() {
 
    getContext(function(ctx) {
+
       loadStationList(ctx);
+
       var currentStation = ctx.getCurrentStation();
-      if(currentStation.id) {
+
+      if(currentStation) {
          selectStation(currentStation.id);
       }
+
+      ctx.player.addEventListener("playing",function() {
+         updateUI(ctx);
+      });
+
+      ctx.player.addEventListener("pause", function() {
+         updateUI(ctx);
+      });
+
+      ctx.player.addEventListener("volumechange", function() {
+         updateUI(ctx);
+      });
+
+      $("#playPauseButton").click(function() {
+         if(ctx.player.isPaused()) {
+            ctx.player.play();
+         } else {
+            ctx.player.pause();
+         }
+      });
+
+      $("#muteButton").click(function() {
+         if(ctx.player.isMuted()) {
+            ctx.player.mute(false);
+         } else {
+            ctx.player.mute(true);
+         }
+      });
+
+      $(".btn").click(function(event) {
+         $(this).blur()
+      });
+
+      updateUI(ctx);
+      resize();
    });
 
-   resize();
 });
 
 $(window).resize(function() {
