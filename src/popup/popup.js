@@ -10,7 +10,7 @@ function loadStationList(context) {
    option.text("Select a station...");
    option.appendTo($("#stationList"));
 
-   for(var i = 0; i < ids.length; i++) {
+   for (var i = 0; i < ids.length; i++) {
       var station = context.stationStore.getStation(ids[i]);
       var option = $("<option>");
       option.attr("value", ids[i]);
@@ -20,8 +20,18 @@ function loadStationList(context) {
 
    var currentStation = context.getCurrentStation();
 
-   if(currentStation !== null) {
+   if (currentStation !== null) {
       $("#stationList").val(currentStation.id);
+   }
+}
+
+function updateUI(ctx) {
+   if (!ctx.player.isPaused()) {
+      $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
+      $("#playPauseButton > span").addClass("glyphicon-pause");
+   } else {
+      $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
+      $("#playPauseButton > span").addClass("glyphicon-play");
    }
 }
 
@@ -38,36 +48,32 @@ function initEvents(context) {
    });
 }
 
+function init(ctx) {
+
+}
+
 $(document).ready(function() {
 
-   getContext(function(context) {
+   getContext(function(ctx) {
 
-      Popup.context = context;
-      initEvents(context);
-      loadStationList(context);
-
-      if(!context.player.isPaused()) {
-         $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
-         $("#playPauseButton > span").addClass("glyphicon-pause");
-      } else {
-         $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
-         $("#playPauseButton > span").addClass("glyphicon-play");
-      }
-
+      Popup.context = ctx;
+      initEvents(ctx);
+      loadStationList(ctx);
+      updateUI(ctx);
    });
 
    $(".btn").click(function(event) {
       $(this).blur()
    });
-   
+
    $("#stationList").change(function() {
       Popup.context.playStation($(this).val());
    });
-   
+
    $("#playPauseButton").click(function() {
       var player = Popup.context.player;
 
-      if(!player.isPaused()) {
+      if (!player.isPaused()) {
          player.pause();
       } else {
          player.play();
@@ -84,5 +90,10 @@ $(document).ready(function() {
       });
    });
 
-});
+   $("#optionsButton").click(function() {
+      chrome.tabs.create({
+         url: "/src/options/options.html",
+      });
+   });
 
+});

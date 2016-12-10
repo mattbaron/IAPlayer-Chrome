@@ -131,7 +131,7 @@ function init(ctx) {
       }
    });
 
-   $("#settingsButton").click(function() {
+   $("#optionsButton").click(function() {
       chrome.tabs.create({
          url: "/src/options/options.html",
       });
