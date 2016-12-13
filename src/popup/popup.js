@@ -1,8 +1,5 @@
-function Popup() {
-   Popup.context;
-}
-
 function loadStationList(context) {
+
    var ids = context.stationStore.getIDs();
 
    var option = $("<option>");
@@ -25,8 +22,8 @@ function loadStationList(context) {
    }
 }
 
-function updateUI(ctx) {
-   if (!ctx.player.isPaused()) {
+function updateUI(context) {
+   if (!context.player.isPaused()) {
       $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
       $("#playPauseButton > span").addClass("glyphicon-pause");
    } else {
@@ -35,50 +32,26 @@ function updateUI(ctx) {
    }
 }
 
-function initEvents(context) {
+function init(context) {
 
-   context.player.addEventListener("playing", function() {
-      $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
-      $("#playPauseButton > span").addClass("glyphicon-pause");
-   });
-
-   context.player.addEventListener("pause", function() {
-      $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
-      $("#playPauseButton > span").addClass("glyphicon-play");
-   });
-}
-
-function init(ctx) {
-
-}
-
-$(document).ready(function() {
-
-   getContext(function(ctx) {
-
-      Popup.context = ctx;
-      initEvents(ctx);
-      loadStationList(ctx);
-      updateUI(ctx);
-   });
-
-   $(".btn").click(function(event) {
-      $(this).blur()
-   });
-
-   $("#stationList").change(function() {
-      Popup.context.playStation($(this).val());
-   });
+   loadStationList(context);
 
    $("#playPauseButton").click(function() {
-      var player = Popup.context.player;
+      var player = context.player;
 
       if (!player.isPaused()) {
          player.pause();
       } else {
          player.play();
       }
+   });
 
+   $("#stationList").change(function() {
+      context.playStation($(this).val());
+   });
+
+   $(".btn").click(function(event) {
+      $(this).blur()
    });
 
    $("#popoutButton").click(function() {
@@ -94,6 +67,25 @@ $(document).ready(function() {
       chrome.tabs.create({
          url: "/src/options/options.html",
       });
+   });
+
+   context.player.addEventListener("playing", function() {
+      $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
+      $("#playPauseButton > span").addClass("glyphicon-pause");
+   });
+
+   context.player.addEventListener("pause", function() {
+      $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
+      $("#playPauseButton > span").addClass("glyphicon-play");
+   });
+
+}
+
+$(document).ready(function() {
+
+   getContext(function(context) {
+      init(context);
+      updateUI(context);
    });
 
 });
