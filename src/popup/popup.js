@@ -37,12 +37,12 @@ function init(context) {
    loadStationList(context);
 
    $("#playPauseButton").click(function() {
-      var player = context.player;
+      var player = player;
 
-      if (!player.isPaused()) {
-         player.pause();
+      if (!context.player.isPaused()) {
+         context.player.pause();
       } else {
-         player.play();
+         context.player.play();
       }
    });
 
