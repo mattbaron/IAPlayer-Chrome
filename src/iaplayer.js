@@ -209,6 +209,14 @@ AudioPlayer.prototype.togglePlayPause = function() {
    }
 };
 
+AudioPlayer.prototype.toggleMute = function() {
+   if(this.isMuted()) {
+      this.mute(false);
+   } else {
+      this.mute(true);
+   }
+};
+
 AudioPlayer.prototype.isPaused = function() {
    return this.audio.paused;
 };
