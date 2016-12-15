@@ -52,12 +52,35 @@ function loadStationItem(context, id) {
       context.playStation(id);
    });
 
+
+
 }
 
 function loadStationList(context) {
    for (id of context.stationStore.getIDs()) {
       loadStationItem(context, id);
    }
+
+   $(".stationListItem").contextmenu(function(event) {
+
+      if (event.which !== 3) {
+         return true;
+      }
+
+      var id = $(this).attr("data-id");
+      Log.i("context " + id);
+
+      var menu = new Menu();
+      menu.setData(id);
+      menu.addItem("Play", function(menuItem) {
+         context.playStation(menuItem.menu.getData());
+         menuItem.menu.destroy();
+      });
+
+      menu.show(event);
+
+      event.preventDefault();
+   });
 }
 
 function initEvents(context) {

@@ -201,6 +201,16 @@ AudioPlayer.prototype.mute = function(value) {
    this.audio.muted = value;
 };
 
+
+AudioPlayer.prototype.toggleMute = function() {
+   Log.i("toggleMute() " + this.audio.muted);
+   if(this.isMuted()) {
+      this.mute(false);
+   } else {
+      this.mute(true);
+   }
+};
+
 AudioPlayer.prototype.togglePlayPause = function() {
    if(!this.audio.paused) {
       this.audio.pause();
@@ -209,13 +219,6 @@ AudioPlayer.prototype.togglePlayPause = function() {
    }
 };
 
-AudioPlayer.prototype.toggleMute = function() {
-   if(this.isMuted()) {
-      this.mute(false);
-   } else {
-      this.mute(true);
-   }
-};
 
 AudioPlayer.prototype.isPaused = function() {
    return this.audio.paused;

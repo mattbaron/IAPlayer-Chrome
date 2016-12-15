@@ -35,7 +35,7 @@ function updateUI(context) {
    if (context.player.isMuted()) {
       $("#muteButton > span").addClass("glyphicon-volume-off");
    } else {
-      $("#muteButton > span").addClass("glyphicon-volume-on");
+      $("#muteButton > span").addClass("glyphicon-volume-up");
    }
 }
 
@@ -89,6 +89,11 @@ function init(context) {
       $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
       $("#playPauseButton > span").addClass("glyphicon-play");
    });
+
+   context.player.addEventListener("volumechange", function() {
+      updateUI(context);
+   });
+
 
 }
 
