@@ -5,6 +5,7 @@ function Context() {
    this.player = new AudioPlayer();
    this.currentStation = null;
    this.eventListeners = {};
+   this.mainWindow;
 }
 
 Context.getInstance = function() {
@@ -121,12 +122,36 @@ function init(callback) {
 
 }
 
+function focusWindow() {
+
+}
+
+function openWindow() {
+   var context = Context.getInstance();
+
+}
+
 $(document).ready(function() {
 
    console.log("background.js is ready");
 
    init(function(context) {
       console.log("background initialization complete.  context is:");
+      console.log(context);
+   });
+
+});
+
+chrome.browserAction.onClicked.addListener(function(tab) {
+   chrome.windows.create({
+      url: "/src/popout/popout.html",
+      type: "popup",
+      width: 400,
+      height: 400
+   },
+   function(window) {
+      var context = Context.getInstance();
+      context.mainWindow = window;
       console.log(context);
    });
 
