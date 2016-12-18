@@ -145,13 +145,12 @@ function AudioPlayer() {
       console.log("ERROR playing " + _this.audio.src);
 
       if(!_this.audio.src.endsWith(";")) {
-         _this.audio.src = _this.audio.src + ";";
          console.log("Trying " + _this.audio.src);
+         _this.audio.src = _this.audio.src + ";";
          _this.audio.play();
       } else {
-         _this.audio.pause;
-         _this.audio.src = _this.currentStream;
          console.log("FATAL ERROR playing " + _this.audio.src);
+         _this.audio.pause;
       }
    });
 }
