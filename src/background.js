@@ -29,6 +29,10 @@ Context.prototype.invokeListeners = function(name, data) {
 
    name = name.toLowerCase();
 
+   if(name === 'foobar') {
+      return;
+   }
+
    console.log("invokeListeners() " + name);
 
    if (this.eventListeners[name] === undefined) {

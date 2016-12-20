@@ -21,6 +21,7 @@ function getBackgroundPage(callback) {
 }
 
 function loadDefaultStations(callback) {
+
    $.getJSON('/stations.json', function(data) {
 
       for(id in data) {
