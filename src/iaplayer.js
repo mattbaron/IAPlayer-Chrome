@@ -7,7 +7,7 @@
 function getContext(callback) {
    chrome.runtime.getBackgroundPage(function(background) {
       if(callback !== undefined) {
-         callback(background.getContext());
+         callback(background.Context.getInstance());
       }
    });
 }

@@ -2,8 +2,8 @@
 
 var local = new Object();
 
-function editStationDialog(id) {
-   var station = local.context.stationStore.getStation(id);
+function editStationDialog(context, id) {
+   var station = context.stationStore.getStation(id);
    $("#stationDialogTitle").text("Edit Station");
    $("#stationDialog").attr("data-id", station.id);
    $("#stationDialog #stationName").val(station.name);
@@ -11,7 +11,7 @@ function editStationDialog(id) {
    $("#stationDialog").modal("show");
 }
 
-function newStationDialog() {
+function newStationDialog(context) {
    $("#stationDialogTitle").text("Add Station");
    $("#stationDialog").removeAttr("data-id");
    $("#stationDialog #stationName").val("");
@@ -19,23 +19,25 @@ function newStationDialog() {
    $("#stationDialog").modal("show");
 }
 
-function saveStation() {
+function saveStation(context) {
+
    var id = $("#stationDialog").attr("data-id");
 
-   if(id === undefined) {
+   if (id === undefined) {
       var station = {};
       station.url = $("#stationDialog #stationURL").val();
       station.name = $("#stationDialog #stationName").val();
-      local.context.stationStore.add(station);
+      context.stationStore.add(station);
    } else {
       $("#stationDialog").modal("hide");
-      var station  = local.context.stationStore.getStation(id);
+      var station = context.stationStore.getStation(id);
       station.url = $("#stationDialog #stationURL").val();
       station.name = $("#stationDialog #stationName").val();
    }
 
-   local.context.saveData();
-   loadStations(local.context);
+   context.saveData();
+   loadStations(context);
+
    $("#stationDialog").removeAttr("data-id");
 
 }
@@ -45,8 +47,8 @@ function loadStations(context) {
    $("#stationTable tbody tr").remove();
 
    var ids = context.stationStore.getIDs();
-   
-   for(var i = 0; i < ids.length; i++) {
+
+   for (var i = 0; i < ids.length; i++) {
       var station = context.stationStore.getStation(ids[i]);
 
       var tr = $("<tr>").attr("id", station.id);
@@ -58,28 +60,29 @@ function loadStations(context) {
    }
 
    $("#stationTable tr").dblclick(function() {
-      editStationDialog($(this).attr("id"));
+      editStationDialog(context, $(this).attr("id"));
    });
 
 }
 
-$(document).ready(function() {
-
-   $(".nav a").click(function(event) {
-
-   });
-
-   getContext(function(ctx) {
-      local.context = ctx;
-      loadStations(local.context);
-   });
+function init(context) {
+   loadStations(context);
 
    $("#newStationButton").click(function() {
-      newStationDialog();
+      newStationDialog(context);
    });
 
    $("#saveStationButton").click(function() {
-      saveStation();
+      saveStation(context);
       $("#stationDialog").modal("hide");
    });
+}
+
+$(document).ready(function() {
+
+   getContext(function(context) {
+      local.context = context;
+      init(context);
+   });
+
 });

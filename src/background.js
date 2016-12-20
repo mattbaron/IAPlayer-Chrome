@@ -25,8 +25,12 @@ Context.prototype.addEventListener = function(name, callback) {
 
 };
 
-Context.prototype.fireListeners = function(name, data) {
+Context.prototype.invokeListeners = function(name, data) {
+
    name = name.toLowerCase();
+
+   console.log("invokeListeners() " + name);
+
    if (this.eventListeners[name] === undefined) {
       return;
    }
@@ -77,12 +81,12 @@ Context.prototype.playStation = function(id) {
       this.playURL(this.currentStation.url);
    }
 
-   this.fireListeners("onNewStation", id);
+   this.invokeListeners("onNewStation", id);
 };
 
 Context.prototype.setStationMap = function(stationMap) {
    this.stationStore = new StationStore(stationMap);
-   this.fireListeners("onConfigChange");
+   this.invokeListeners("onConfigChange");
 };
 
 Context.prototype.loadData = function(callback) {
@@ -96,10 +100,14 @@ Context.prototype.loadData = function(callback) {
 };
 
 Context.prototype.saveData = function(callback) {
+   console.log("Context.saveData()");
 
-   chrome.storage.sync.set({
-      "stationMap": this.stationStore.export()
-   }, function() {
+   var _this = this;
+   var data = {};
+   data.stationMap = this.stationStore.export();
+
+   chrome.storage.sync.set(data, function() {
+      _this.invokeListeners("onConfigChange");
       if (callback !== undefined) {
          callback();
       }
@@ -113,10 +121,7 @@ function getContext() {
 
 function init(callback) {
    var context = Context.getInstance();
-
    context.loadData(function(stationMap) {
-      console.log("loaded data:");
-      console.log(stationMap);
       callback(context);
    });
 
@@ -133,11 +138,8 @@ function openWindow() {
 
 $(document).ready(function() {
 
-   console.log("background.js is ready");
-
    init(function(context) {
-      console.log("background initialization complete.  context is:");
-      console.log(context);
+      console.log("background initialization complete");
    });
 
 });
