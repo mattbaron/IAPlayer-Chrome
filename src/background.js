@@ -29,10 +29,6 @@ Context.prototype.invokeListeners = function(name, data) {
 
    name = name.toLowerCase();
 
-   if(name === 'foobar') {
-      return;
-   }
-
    console.log("invokeListeners() " + name);
 
    if (this.eventListeners[name] === undefined) {
@@ -131,15 +127,6 @@ function init(callback) {
 
 }
 
-function focusWindow() {
-
-}
-
-function openWindow() {
-   var context = Context.getInstance();
-
-}
-
 $(document).ready(function() {
 
    init(function(context) {
@@ -150,15 +137,15 @@ $(document).ready(function() {
 
 chrome.browserAction.onClicked.addListener(function(tab) {
    chrome.windows.create({
-      url: "/src/popout/popout.html",
-      type: "popup",
-      width: 400,
-      height: 400
-   },
-   function(window) {
-      var context = Context.getInstance();
-      context.mainWindow = window;
-      console.log(context);
-   });
+         url: "/src/popout/popout.html",
+         type: "popup",
+         width: 400,
+         height: 400
+      },
+      function(window) {
+         var context = Context.getInstance();
+         context.mainWindow = window;
+         console.log(context);
+      });
 
 });
