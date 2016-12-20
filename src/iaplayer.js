@@ -145,13 +145,12 @@ function AudioPlayer() {
       console.log("ERROR playing " + _this.audio.src);
 
       if(!_this.audio.src.endsWith(";")) {
-         _this.audio.src = _this.audio.src + ";";
          console.log("Trying " + _this.audio.src);
+         _this.audio.src = _this.audio.src + ";";
          _this.audio.play();
       } else {
-         _this.audio.pause;
-         _this.audio.src = _this.currentStream;
          console.log("FATAL ERROR playing " + _this.audio.src);
+         _this.audio.pause;
       }
    });
 }
@@ -201,6 +200,16 @@ AudioPlayer.prototype.mute = function(value) {
    this.audio.muted = value;
 };
 
+
+AudioPlayer.prototype.toggleMute = function() {
+   Log.i("toggleMute() " + this.audio.muted);
+   if(this.isMuted()) {
+      this.mute(false);
+   } else {
+      this.mute(true);
+   }
+};
+
 AudioPlayer.prototype.togglePlayPause = function() {
    if(!this.audio.paused) {
       this.audio.pause();
@@ -208,6 +217,7 @@ AudioPlayer.prototype.togglePlayPause = function() {
       this.audio.play();
    }
 };
+
 
 AudioPlayer.prototype.isPaused = function() {
    return this.audio.paused;

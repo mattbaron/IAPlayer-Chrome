@@ -23,12 +23,19 @@ function loadStationList(context) {
 }
 
 function updateUI(context) {
+
+   $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause")
    if (!context.player.isPaused()) {
-      $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
       $("#playPauseButton > span").addClass("glyphicon-pause");
    } else {
-      $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
       $("#playPauseButton > span").addClass("glyphicon-play");
+   }
+
+   $("#muteButton > span").removeClass("glyphicon-volume-up glyphicon-volume-off");
+   if (context.player.isMuted()) {
+      $("#muteButton > span").addClass("glyphicon-volume-off");
+   } else {
+      $("#muteButton > span").addClass("glyphicon-volume-up");
    }
 }
 
@@ -37,8 +44,6 @@ function init(context) {
    loadStationList(context);
 
    $("#playPauseButton").click(function() {
-      var player = player;
-
       if (!context.player.isPaused()) {
          context.player.pause();
       } else {
@@ -54,6 +59,11 @@ function init(context) {
       $(this).blur()
    });
 
+
+   $("#muteButton").click(function() {
+      context.player.toggleMute();
+   });
+
    $("#popoutButton").click(function() {
       chrome.windows.create({
          url: "/src/popout/popout.html",
@@ -62,6 +72,7 @@ function init(context) {
          height: 400
       });
    });
+
 
    $("#optionsButton").click(function() {
       chrome.tabs.create({
@@ -78,6 +89,11 @@ function init(context) {
       $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
       $("#playPauseButton > span").addClass("glyphicon-play");
    });
+
+   context.player.addEventListener("volumechange", function() {
+      updateUI(context);
+   });
+
 
 }
 
