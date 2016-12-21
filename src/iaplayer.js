@@ -142,7 +142,9 @@ function AudioPlayer() {
    var _this = this;
    
    this.audio.addEventListener("error", function(event) {
+
       console.log("ERROR playing " + _this.audio.src);
+      console.log(event);
 
       if(!_this.audio.src.endsWith(";")) {
          console.log("Trying " + _this.audio.src);
@@ -152,6 +154,7 @@ function AudioPlayer() {
          console.log("FATAL ERROR playing " + _this.audio.src);
          _this.audio.pause;
       }
+
    });
 }
 
