@@ -7,7 +7,7 @@
 function getContext(callback) {
    chrome.runtime.getBackgroundPage(function(background) {
       if(callback !== undefined) {
-         callback(background.getContext());
+         callback(background.Context.getInstance());
       }
    });
 }
@@ -21,6 +21,7 @@ function getBackgroundPage(callback) {
 }
 
 function loadDefaultStations(callback) {
+
    $.getJSON('/stations.json', function(data) {
 
       for(id in data) {
