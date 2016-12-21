@@ -22,7 +22,6 @@ Context.prototype.addEventListener = function(name, callback) {
    }
 
    this.eventListeners[name].push(callback);
-
 };
 
 Context.prototype.invokeListeners = function(name, data) {
