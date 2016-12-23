@@ -145,6 +145,7 @@ chrome.browserAction.onClicked.addListener(function(tab) {
          var context = Context.getInstance();
          context.mainWindow = window;
          console.log(context);
-      });
+      }
+   );
 
 });
