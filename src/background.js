@@ -119,7 +119,9 @@ function getContext() {
 }
 
 function init(callback) {
+   
    var context = Context.getInstance();
+   
    context.loadData(function(stationMap) {
       callback(context);
    });
