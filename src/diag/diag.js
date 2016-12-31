@@ -3,7 +3,6 @@ stream.pls = "https://somafm.com/sonicuniverse192.pls";
 stream.m3u = "http://listen.abacus.fm/mozartpiano.m3u";
 stream.direct = "";
 
-
 function test() {
    var p = new AudioPlayer();
    p.prepare(stream.m3u, function() {
@@ -13,6 +12,7 @@ function test() {
 }
 
 function init(context) {
+
    context.loadData(function(stationMap) {
       $("#stationMap").html(JSON.stringify(stationMap, null, 3));
       console.log(stationMap);
