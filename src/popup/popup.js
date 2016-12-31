@@ -37,6 +37,7 @@ function updateUI(context) {
    } else {
       $("#muteButton > span").addClass("glyphicon-volume-up");
    }
+
 }
 
 function init(context) {
