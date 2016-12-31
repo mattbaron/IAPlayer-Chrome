@@ -24,7 +24,8 @@ function loadStationList(context) {
 
 function updateUI(context) {
 
-   $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause")
+   $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
+
    if (!context.player.isPaused()) {
       $("#playPauseButton > span").addClass("glyphicon-pause");
    } else {
@@ -32,6 +33,7 @@ function updateUI(context) {
    }
 
    $("#muteButton > span").removeClass("glyphicon-volume-up glyphicon-volume-off");
+
    if (context.player.isMuted()) {
       $("#muteButton > span").addClass("glyphicon-volume-off");
    } else {
@@ -57,9 +59,8 @@ function init(context) {
    });
 
    $(".btn").click(function(event) {
-      $(this).blur()
+      $(this).blur();
    });
-
 
    $("#muteButton").click(function() {
       context.player.toggleMute();
@@ -73,7 +74,6 @@ function init(context) {
          height: 400
       });
    });
-
 
    $("#optionsButton").click(function() {
       chrome.tabs.create({
@@ -94,7 +94,6 @@ function init(context) {
    context.player.addEventListener("volumechange", function() {
       updateUI(context);
    });
-
 
 }
 
