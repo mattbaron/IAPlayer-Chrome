@@ -12,37 +12,32 @@ function test() {
    });
 }
 
-function init() {
-
-   getContext(function(ctx) {
-
-      ctx.loadData(function(stationMap) {
-         $("#stationMap").html(JSON.stringify(stationMap, null, 3));
-         console.log(stationMap);
-      });
-
+function init(context) {
+   context.loadData(function(stationMap) {
+      $("#stationMap").html(JSON.stringify(stationMap, null, 3));
+      console.log(stationMap);
    });
+
+   $("#navClearData").click(function() {
+      chrome.storage.sync.clear();
+      init(context);
+   });
+
+   $("#navLoadDefaults").click(function() {
+      loadDefaultStations(function(stationMap) {
+         console.log(stationMap);
+         context.setStationMap(stationMap);
+         context.saveData();
+         init(context);
+      });
+   });
+
 }
 
 $(document).ready(function() {
 
-   $("#navClearData").click(function() {
-      chrome.storage.sync.clear();
-      init();
-   });
-
-   $("#navLoadDefaults").click(function() {
-
-      getContext(function(ctx) {
-
-         loadDefaultStations(function(stationMap) {
-            console.log(stationMap);
-            ctx.setStationMap(stationMap);
-            ctx.saveData();
-            init();
-         });
-      });
-
+   getContext(function(context) {
+      init(context);
    });
 
 });
