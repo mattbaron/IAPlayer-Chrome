@@ -44,16 +44,27 @@ function saveStation(context) {
 
 function getSelection() {
    var selection = new Array();
+
    $("#stationTable tr.station-selected").each(function() {
       selection.push($(this).attr("id"));
    });
 
-   return ($("#stationTable tr.station-selected"));
+   return selection;
 }
 
 function clearSelection() {
    $("#stationTable tr").removeClass("station-selected");
    $("#deleteStationButton").hide();
+}
+
+function deleteStations(context, stations) {
+   stations.forEach(function(id) {
+      console.log(id);
+      context.stationStore.delete(id);
+   });
+   context.saveData();
+   clearSelection();
+   loadStations(context);
 }
 
 function loadStations(context) {
@@ -113,6 +124,11 @@ function init(context) {
       saveStation(context);
       $("#stationDialog").modal("hide");
    });
+
+   $("#stationDialog").on("shown.bs.modal", function () {
+      $("#stationName").focus();
+   });
+
 
 }
 

@@ -123,7 +123,16 @@ function init(callback) {
    var context = Context.getInstance();
    
    context.loadData(function(stationMap) {
-      callback(context);
+
+      if(context.stationStore.size() === 0) {
+         console.log("Zero size stationStore in init().  Loading default stations.");
+         loadDefaultStations(function(defaultStationMap) {
+            console.log("Done loading default stations");
+            console.log(defaultStationMap);
+            context.setStationMap(defaultStationMap);
+         });
+      }
+
    });
 
 }

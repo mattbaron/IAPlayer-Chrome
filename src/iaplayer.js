@@ -56,6 +56,10 @@ StationStore.prototype.add = function(object) {
    this.stationMap[object.id] = object;
 };
 
+StationStore.prototype.delete = function(id) {
+   delete this.stationMap[id];
+};
+
 StationStore.prototype.getStation = function(id) {
    if(id === undefined) {
       id = (this.getIDs())[0];
@@ -80,6 +84,10 @@ StationStore.prototype.export = function() {
 
 StationStore.prototype.import = function(stationMap) {
    this.stationMap = object;
+};
+
+StationStore.prototype.size = function() {
+   return Object.keys(this.stationMap).length;
 };
 
 ///////////////////////////////////////////////////////////////////////////////

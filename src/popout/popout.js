@@ -35,7 +35,7 @@ function loadStationItem(context, id) {
 
    var station = context.stationStore.getStation(id);
 
-   if (station.name.length === 0) {
+   if(station.name.length === 0) {
       return;
    }
 
@@ -55,13 +55,16 @@ function loadStationItem(context, id) {
 }
 
 function loadStationList(context) {
-   for (id of context.stationStore.getIDs()) {
+
+   $("#stationList div").remove();
+
+   for(id of context.stationStore.getIDs()) {
       loadStationItem(context, id);
    }
 
    $(".stationListItem").contextmenu(function(event) {
 
-      if (event.which !== 3) {
+      if(event.which !== 3) {
          return true;
       }
 
@@ -88,13 +91,13 @@ function initEvents(context) {
 }
 
 function updateUI(context) {
-   if (!context.player.isPaused()) {
+   if(!context.player.isPaused()) {
       $("#playPauseButton span").removeClass("glyphicon-play glyphicon-pause").addClass("glyphicon-pause");
    } else {
       $("#playPauseButton span").removeClass("glyphicon-play glyphicon-pause").addClass("glyphicon-play");
    }
 
-   if (context.player.isMuted()) {
+   if(context.player.isMuted()) {
       $("#muteButton span")
          .removeClass("glyphicon-volume-up glyphicon-volume-off")
          .addClass("glyphicon-volume-off");
@@ -111,7 +114,7 @@ function init(context) {
 
    var currentStation = context.getCurrentStation();
 
-   if (currentStation) {
+   if(currentStation) {
       selectStation(currentStation.id);
    }
 
@@ -133,11 +136,11 @@ function init(context) {
    });
 
    context.addEventListener("onConfigChange", function(context, id) {
-
+      loadStationList(context);
    });
 
    $("#playPauseButton").click(function() {
-      if (context.player.isPaused()) {
+      if(context.player.isPaused()) {
          context.player.play();
       } else {
          context.player.pause();
@@ -145,7 +148,7 @@ function init(context) {
    });
 
    $("#muteButton").click(function() {
-      if (context.player.isMuted()) {
+      if(context.player.isMuted()) {
          context.player.mute(false);
       } else {
          context.player.mute(true);
