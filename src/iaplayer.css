@@ -7,3 +7,12 @@
 .menu-item {
 
 }
+
+.station-selected {
+   background: #3F51B5;
+   color: #ffffff;
+}
+
+.invisible {
+   display: none;
+}

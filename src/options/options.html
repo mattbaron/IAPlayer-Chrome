@@ -4,6 +4,7 @@
 <head>
    <title>IAPlayer Settings</title>
    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+   <link rel="stylesheet" href="/src/iaplayer.css">
    <link rel="stylesheet" href="options.css">
 </head>
 
@@ -34,15 +35,18 @@
 
       <div class="row align-right">
 
+         <button type="button" id="deleteStationButton" class="btn btn-danger collapse">
+            <span class="glyphicon glyphicon-remove"></span> Delete Station
+         </button>
+
          <button type="button" id="newStationButton" class="btn btn-success">
             <span class="glyphicon glyphicon-plus"></span> Add Station
          </button>
-
       </div>
 
       <div class="row">
 
-         <table id="stationTable" class="table table-hover">
+         <table id="stationTable" class="table">
             <thead>
                <tr>
                   <th>Station Name</th>

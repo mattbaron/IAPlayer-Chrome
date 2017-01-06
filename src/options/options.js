@@ -42,6 +42,20 @@ function saveStation(context) {
 
 }
 
+function getSelection() {
+   var selection = new Array();
+   $("#stationTable tr.station-selected").each(function() {
+      selection.push($(this).attr("id"));
+   });
+
+   return ($("#stationTable tr.station-selected"));
+}
+
+function clearSelection() {
+   $("#stationTable tr").removeClass("station-selected");
+   $("#deleteStationButton").hide();
+}
+
 function loadStations(context) {
 
    $("#stationTable tbody tr").remove();
@@ -51,7 +65,7 @@ function loadStations(context) {
    for (var i = 0; i < ids.length; i++) {
       var station = context.stationStore.getStation(ids[i]);
 
-      var tr = $("<tr>").attr("id", station.id);
+      var tr = $("<tr>").attr("id", station.id).attr("data-station-id", station.id);
 
       $("<td>").html(station.name).appendTo(tr);
       $("<td>").html(station.url).appendTo(tr);
@@ -63,19 +77,43 @@ function loadStations(context) {
       editStationDialog(context, $(this).attr("id"));
    });
 
+   $("#stationTable tr[data-station-id]").click(function() {
+
+      if($(this).hasClass("station-selected")) {
+         $(this).removeClass("station-selected");
+      } else {
+         $(this).addClass("station-selected");
+      }
+
+      var selection = getSelection();
+
+      if(selection.length > 0) {
+         $("#deleteStationButton").show();
+      } else {
+         $("#deleteStationButton").hide();
+      }
+
+   });
+
 }
 
 function init(context) {
+
    loadStations(context);
 
    $("#newStationButton").click(function() {
       newStationDialog(context);
    });
 
+   $("#deleteStationButton").click(function() {
+      deleteStations(context, getSelection());
+   });
+
    $("#saveStationButton").click(function() {
       saveStation(context);
       $("#stationDialog").modal("hide");
    });
+
 }
 
 $(document).ready(function() {
@@ -83,6 +121,12 @@ $(document).ready(function() {
    getContext(function(context) {
       local.context = context;
       init(context);
+   });
+
+   $(document).keyup(function(event) {
+      if (event.keyCode === 27) {
+         clearSelection();
+      }
    });
 
 });

@@ -105,50 +105,50 @@ function updateUI(context) {
    }
 }
 
-function init(ctx) {
+function init(context) {
 
-   loadStationList(ctx);
+   loadStationList(context);
 
-   var currentStation = ctx.getCurrentStation();
+   var currentStation = context.getCurrentStation();
 
    if (currentStation) {
       selectStation(currentStation.id);
    }
 
-   ctx.player.addEventListener("playing", function() {
-      updateUI(ctx);
+   context.player.addEventListener("playing", function() {
+      updateUI(context);
    });
 
-   ctx.player.addEventListener("pause", function() {
-      updateUI(ctx);
+   context.player.addEventListener("pause", function() {
+      updateUI(context);
    });
 
-   ctx.player.addEventListener("volumechange", function() {
-      updateUI(ctx);
+   context.player.addEventListener("volumechange", function() {
+      updateUI(context);
    });
 
-   ctx.addEventListener("onNewStation", function(context, id) {
+   context.addEventListener("onNewStation", function(context, id) {
       Log.i("popout.js onNewStation");
       selectStation(id);
    });
 
-   ctx.addEventListener("onConfigChange", function(context, id) {
+   context.addEventListener("onConfigChange", function(context, id) {
 
    });
 
    $("#playPauseButton").click(function() {
-      if (ctx.player.isPaused()) {
-         ctx.player.play();
+      if (context.player.isPaused()) {
+         context.player.play();
       } else {
-         ctx.player.pause();
+         context.player.pause();
       }
    });
 
    $("#muteButton").click(function() {
-      if (ctx.player.isMuted()) {
-         ctx.player.mute(false);
+      if (context.player.isMuted()) {
+         context.player.mute(false);
       } else {
-         ctx.player.mute(true);
+         context.player.mute(true);
       }
    });
 
@@ -162,7 +162,7 @@ function init(ctx) {
       $(this).blur()
    });
 
-   updateUI(ctx);
+   updateUI(context);
    resize();
 }
 
@@ -172,8 +172,8 @@ window.onload = function() {
 
 $(document).ready(function() {
 
-   getContext(function(ctx) {
-      init(ctx);
+   getContext(function(context) {
+      init(context);
    });
 
 });
