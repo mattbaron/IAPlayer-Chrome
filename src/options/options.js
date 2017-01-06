@@ -42,6 +42,11 @@ function saveStation(context) {
 
 }
 
+function getSelection() {
+   var selection = new Array();
+   return ($("#stationTable tr.station-selected"));
+}
+
 function loadStations(context) {
 
    $("#stationTable tbody tr").remove();
@@ -51,7 +56,7 @@ function loadStations(context) {
    for (var i = 0; i < ids.length; i++) {
       var station = context.stationStore.getStation(ids[i]);
 
-      var tr = $("<tr>").attr("id", station.id);
+      var tr = $("<tr>").attr("id", station.id).attr("data-station-id", station.id);
 
       $("<td>").html(station.name).appendTo(tr);
       $("<td>").html(station.url).appendTo(tr);
@@ -63,9 +68,30 @@ function loadStations(context) {
       editStationDialog(context, $(this).attr("id"));
    });
 
+   $("#stationTable tr[data-station-id]").click(function() {
+
+      if($(this).hasClass("station-selected")) {
+         $(this).removeClass("station-selected");
+      } else {
+         $(this).addClass("station-selected");
+      }
+
+      var selection = getSelection();
+
+      console.log(selection);
+
+      if(selection.length > 0) {
+         $("#deleteStationButton").show();
+      } else {
+         $("#deleteStationButton").hide();
+      }
+
+   });
+
 }
 
 function init(context) {
+
    loadStations(context);
 
    $("#newStationButton").click(function() {
@@ -76,9 +102,13 @@ function init(context) {
       saveStation(context);
       $("#stationDialog").modal("hide");
    });
+
+
 }
 
 $(document).ready(function() {
+
+   $("#deleteStationButton").hide();
 
    getContext(function(context) {
       local.context = context;
