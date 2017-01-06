@@ -43,8 +43,11 @@ function saveStation(context) {
 }
 
 function getSelection() {
-   var selection = new Array();
    return ($("#stationTable tr.station-selected"));
+}
+
+function clearSelection() {
+   $("#stationTable tr").removeClass("station-selected");
 }
 
 function loadStations(context) {
@@ -103,7 +106,6 @@ function init(context) {
       $("#stationDialog").modal("hide");
    });
 
-
 }
 
 $(document).ready(function() {
@@ -113,6 +115,12 @@ $(document).ready(function() {
    getContext(function(context) {
       local.context = context;
       init(context);
+   });
+
+   $(document).keyup(function(event) {
+      if (event.keyCode === 27) {
+         clearSelection();
+      }
    });
 
 });
