@@ -43,6 +43,11 @@ function saveStation(context) {
 }
 
 function getSelection() {
+   var selection = new Array();
+   $("#stationTable tr.station-selected").each(function() {
+      selection.push($(this).attr("id"));
+   });
+
    return ($("#stationTable tr.station-selected"));
 }
 
@@ -82,8 +87,6 @@ function loadStations(context) {
 
       var selection = getSelection();
 
-      console.log(selection);
-
       if(selection.length > 0) {
          $("#deleteStationButton").show();
       } else {
@@ -100,6 +103,10 @@ function init(context) {
 
    $("#newStationButton").click(function() {
       newStationDialog(context);
+   });
+
+   $("#deleteStationButton").click(function() {
+      deleteStations(context, getSelection());
    });
 
    $("#saveStationButton").click(function() {
