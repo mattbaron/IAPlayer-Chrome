@@ -52,8 +52,6 @@ function loadStationItem(context, id) {
       context.playStation(id);
    });
 
-
-
 }
 
 function loadStationList(context) {

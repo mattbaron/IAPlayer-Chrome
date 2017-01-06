@@ -7,7 +7,7 @@ function loadStationList(context) {
    option.text("Select a station...");
    option.appendTo($("#stationList"));
 
-   for (var i = 0; i < ids.length; i++) {
+   for(var i = 0; i < ids.length; i++) {
       var station = context.stationStore.getStation(ids[i]);
       var option = $("<option>");
       option.attr("value", ids[i]);
@@ -17,7 +17,7 @@ function loadStationList(context) {
 
    var currentStation = context.getCurrentStation();
 
-   if (currentStation !== null) {
+   if(currentStation !== null) {
       $("#stationList").val(currentStation.id);
    }
 }
@@ -26,7 +26,7 @@ function updateUI(context) {
 
    $("#playPauseButton > span").removeClass("glyphicon-play glyphicon-pause");
 
-   if (!context.player.isPaused()) {
+   if(!context.player.isPaused()) {
       $("#playPauseButton > span").addClass("glyphicon-pause");
    } else {
       $("#playPauseButton > span").addClass("glyphicon-play");
@@ -34,7 +34,7 @@ function updateUI(context) {
 
    $("#muteButton > span").removeClass("glyphicon-volume-up glyphicon-volume-off");
 
-   if (context.player.isMuted()) {
+   if(context.player.isMuted()) {
       $("#muteButton > span").addClass("glyphicon-volume-off");
    } else {
       $("#muteButton > span").addClass("glyphicon-volume-up");
@@ -47,7 +47,7 @@ function init(context) {
    loadStationList(context);
 
    $("#playPauseButton").click(function() {
-      if (!context.player.isPaused()) {
+      if(!context.player.isPaused()) {
          context.player.pause();
       } else {
          context.player.play();
