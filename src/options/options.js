@@ -48,6 +48,7 @@ function getSelection() {
 
 function clearSelection() {
    $("#stationTable tr").removeClass("station-selected");
+   $("#deleteStationButton").hide();
 }
 
 function loadStations(context) {
@@ -109,8 +110,6 @@ function init(context) {
 }
 
 $(document).ready(function() {
-
-   $("#deleteStationButton").hide();
 
    getContext(function(context) {
       local.context = context;
