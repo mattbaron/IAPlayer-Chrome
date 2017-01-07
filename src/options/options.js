@@ -129,13 +129,11 @@ function init(context) {
       $("#stationName").focus();
    });
 
-
 }
 
 $(document).ready(function() {
 
    getContext(function(context) {
-      local.context = context;
       init(context);
    });
 

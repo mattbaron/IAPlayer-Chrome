@@ -114,6 +114,10 @@ Context.prototype.saveData = function(callback) {
 
 };
 
+Context.prototype.clearData = function(callback) {
+
+};
+
 function getContext() {
    return Context.getInstance();
 }

@@ -1,22 +1,12 @@
-var stream = Array();
-stream.pls = "https://somafm.com/sonicuniverse192.pls";
-stream.m3u = "http://listen.abacus.fm/mozartpiano.m3u";
-stream.direct = "";
-
-function test() {
-   var p = new AudioPlayer();
-   p.prepare(stream.m3u, function() {
-      console.log("ready()");
-      p.play();
-   });
-}
-
 function init(context) {
 
-   context.loadData(function(stationMap) {
-      $("#stationMap").html(JSON.stringify(stationMap, null, 3));
-      console.log(stationMap);
-   });
+   //context.loadData(function(stationMap) {
+   //   $("#stationMap").html(JSON.stringify(stationMap, null, 3));
+   //   console.log(stationMap);
+   //});
+
+   $("#stationMap").html(JSON.stringify(context.stationStore.getStationMap(), null, 3));
+
 
    $("#navClearData").click(function() {
       chrome.storage.sync.clear();
