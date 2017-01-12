@@ -46,7 +46,6 @@ function getSelection() {
    var selection = new Array();
 
    $("#stationTable tr.station-selected").each(function() {
-      // FOo
       selection.push($(this).attr("id"));
    });
 
